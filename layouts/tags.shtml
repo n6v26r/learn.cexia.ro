@@ -1,0 +1,52 @@
+<extend template="base.shtml">
+<head id="head"></head>
+<main id="main" class="folder-page">
+	<ctx tag_names="$site.asset('tags.json').ziggy()" author_names="$site.asset('authors.json').ziggy()">
+		<section class="tag-browser" aria-label="Filtrare lecții">
+			<div class="filter-controls">
+				<div class="filter-group">
+					<h2>Etichete</h2>
+					<div class="tag-filters">
+						<a class="tag-reset" href="$site.page('tags').link()">Toate</a>
+						<ctx :loop="$ctx.tag_names.iterate()">
+							<input class="tag-filter" type="checkbox" id="$loop.it.key">
+							<label class="tag" for="$loop.it.key" :text="$loop.it.value"></label>
+						</ctx>
+					</div>
+				</div>
+				<div class="filter-group">
+					<h2>Autori</h2>
+					<div class="tag-filters">
+						<ctx :loop="$ctx.author_names.iterate()">
+							<input class="tag-filter" type="checkbox" id="$loop.it.key.prefix('author-')">
+							<label class="tag" for="$loop.it.key.prefix('author-')" :text="$loop.it.value"></label>
+						</ctx>
+					</div>
+				</div>
+			</div>
+			<ul class="lesson-grid tag-results">
+				<ctx :loop="$site.pages()">
+					<ctx :if="$loop.it.link().eql('/404/').not().and($loop.it.link().eql('/tags/').not()).and($loop.it.link().eql('/search/').not())">
+						<ctx :if="$loop.it.isSection().not()">
+							<li class="tag-result">
+								<a href="$loop.it.link()" :text="$loop.it.title"></a>
+								<ctx :if="$loop.it.authors.empty.not()">
+									<p class="card-authors">
+										<ctx :if="$loop.it.authors.len.eq(1)">Autor</ctx><ctx :if="$loop.it.authors.len.eq(1).not()">Autori</ctx>:
+										<ctx :loop="$loop.it.authors"><strong class="author"><a data-author="$loop.it" href="$site.page('tags').link().suffix('#author-', $loop.it)" :text="$ctx.author_names.get($loop.it)"></a></strong></ctx>
+									</p>
+								</ctx>
+								<ctx :if="$loop.it.tags.empty.not()">
+									<div class="card-tags">
+										<ctx :loop="$loop.it.tags"><a class="tag" data-tag="$loop.it" href="$site.page('tags').link().suffix('#', $loop.it)" :text="$ctx.tag_names.get($loop.it)"></a></ctx>
+									</div>
+								</ctx>
+								<ctx :if="$loop.it.description.eql('').not()"><p :text="$loop.it.description"></p></ctx>
+							</li>
+						</ctx>
+					</ctx>
+				</ctx>
+			</ul>
+		</section>
+	</ctx>
+</main>

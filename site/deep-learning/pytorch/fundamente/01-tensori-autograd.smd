@@ -1,0 +1,6 @@
+---
+.title = "01 · Tensori și autograd",
+.description = "Lucrează cu forme, broadcasting și grafuri computaționale; verifică gradientele produse de autograd.",
+.tags = ["pytorch", "tensori", "autograd"],
+.custom = .{ .level = "Intermediar", .duration = "120 min", .gpu = "Opțional" },
+---

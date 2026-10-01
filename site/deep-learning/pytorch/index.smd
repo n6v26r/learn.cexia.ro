@@ -1,0 +1,6 @@
+---
+.title = "PyTorch",
+.description = "Tensori, autodiferențiere și modele neurale implementate într-un framework modern.",
+---
+
+Folosim PyTorch după ce mecanismele de bază sunt clare, astfel încât fiecare abstracție să poată fi legată de matematica din spate.

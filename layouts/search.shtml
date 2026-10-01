@@ -1,0 +1,23 @@
+<extend template="base.shtml">
+<head id="head"></head>
+<main id="main" class="search-page">
+	<form class="search-page-form" action="$site.page('search').link()" method="get" role="search">
+		<label for="page-search-input">Caută după titlu, explicații sau cod</label>
+		<div class="search-page-field">
+			<input id="page-search-input" name="q" type="search" autocomplete="off" autofocus data-search-input>
+			<button type="submit">Caută</button>
+		</div>
+	</form>
+	<p class="search-page-status" aria-live="polite">Introdu cel puțin două caractere.</p>
+	<ul class="search-results search-page-results"></ul>
+	<div class="search-corpus" hidden>
+		<ctx :loop="$site.pages()">
+			<ctx :if="$loop.it.link().eql('/404/').not().and($loop.it.link().eql('/tags/').not()).and($loop.it.link().eql('/search/').not()).and($loop.it.custom.has('section').not())">
+				<article class="search-document">
+					<a class="search-document-link" href="$loop.it.link()" :text="$loop.it.title"></a>
+					<template class="search-document-content" :html="$loop.it.content()"></template>
+				</article>
+			</ctx>
+		</ctx>
+	</div>
+</main>

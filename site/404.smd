@@ -1,0 +1,9 @@
+---
+.title = "404",
+.date = .date("2026-09-05"),
+.layout = "404.shtml",
+.aliases = ["/404.html"],
+.custom = .{ .crumbs = "404" },
+---
+
+Pagina nu a fost găsită. Poți reveni la [biblioteca de lecții](/).

@@ -1,0 +1,6 @@
+---
+.title = "Calcul diferențial",
+.description = "Derivate, derivate parțiale, gradienți și regula lanțului pentru funcții cu mai multe variabile.",
+---
+
+Calculul diferențial explică felul în care o schimbare mică a parametrilor modifică eroarea unui model.

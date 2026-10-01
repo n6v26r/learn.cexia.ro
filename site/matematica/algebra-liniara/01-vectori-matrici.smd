@@ -1,0 +1,6 @@
+---
+.title = "01 · Vectori, matrici și transformări",
+.description = "Înțelege produsul scalar, înmulțirea matricială, normele și rolul lor în straturile neurale.",
+.tags = ["matematica", "algebra-liniara", "numpy"],
+.custom = .{ .level = "Intermediar", .duration = "110 min" },
+---

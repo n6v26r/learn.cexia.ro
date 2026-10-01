@@ -1,0 +1,7 @@
+---
+.title = "01 · Derivate, gradienți și regula lanțului",
+.description = "Derivă funcții compuse, verifică numeric gradientele și conectează teoria cu backpropagation.",
+.authors = ["cexia-learn", "echipa-de-matematica"],
+.tags = ["matematica", "calcul", "backpropagation"],
+.custom = .{ .level = "Avansat", .duration = "140 min" },
+---

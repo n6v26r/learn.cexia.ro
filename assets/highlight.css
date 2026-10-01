@@ -1,0 +1,69 @@
+code.zig,
+code.ziggy,
+code.python,
+code.py {
+  color: var(--ink);
+}
+
+code .comment,
+code .comment_documentation {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+code .keyword,
+code .keyword_modifier,
+code .keyword_function,
+code .keyword_type {
+  color: var(--syntax-keyword);
+  font-weight: 700;
+}
+
+code .string,
+code .string_special,
+code .string_embedded {
+  color: var(--syntax-string);
+}
+
+code .number,
+code .numeric {
+  color: var(--gold);
+}
+
+code .constant_builtin,
+code .boolean,
+code .type,
+code .type_builtin,
+code .function,
+code .function_method,
+code .property.function_method,
+code .constructor.function,
+code .function_builtin {
+  color: var(--syntax-call);
+}
+
+code .field,
+code .property:not(.function_method),
+code .attribute,
+code .variable_builtin,
+code .variable_member {
+  color: var(--ink-soft);
+}
+
+code .operator {
+  color: var(--gold);
+}
+
+code .constructor,
+code .punctuation,
+code .punctuation_bracket,
+code .punctuation_delimiter {
+  color: inherit;
+}
+
+code .error {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-underline-offset: 0.18em;
+}

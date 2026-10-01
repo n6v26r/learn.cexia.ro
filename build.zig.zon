@@ -1,0 +1,66 @@
+.{
+    .name = .learn_cexia_ro,
+    .version = "0.0.1",
+    .dependencies = .{
+        .zine = .{
+            .url = "git+https://github.com/kristoff-it/zine?ref=v0.13.0#a06ce90abcda563b9371b97295f7d68e69b818a5",
+            .hash = "zine-0.13.0-ou6nIK1fFwA8xj3QFScC6Fjvqa4DhpXltQiKLAQe3DeC",
+        },
+        .ziggy = .{
+            .url = "git+https://github.com/kristoff-it/ziggy#06d7ce8df16974e0ee7f897db50784d84f6b9f32",
+            .hash = "ziggy-0.2.0-kTg8v6TvBwDaJXZ-bHaKizTGqzwLLESmrR2bjWCXDHUf",
+        },
+        .katex = .{
+            .url = "https://registry.npmjs.org/katex/-/katex-0.16.22.tgz",
+            .hash = "N-V-__8AAJPKPABsfpK5VMJRJdYmsTNtsrhEUbLJXSKS48Ki",
+        },
+        .font_katex = .{
+            .url = "https://s.razv.xyz/fonts/katex-fonts-0.16.22.tar.gz",
+            .hash = "N-V-__8AACP7AwCZkNTVlDuxe0NeWiO-5agod5_0ErFqBC98",
+        },
+        .font_bebas_neue = .{
+            .url = "https://s.razv.xyz/fonts/bebas-neue-5.3.0.tar.gz",
+            .hash = "N-V-__8AAM9pAAA6zioJb1G2HFXlouaf_vwWje7b1ecTVGMx",
+        },
+        .font_lexend = .{
+            .url = "https://s.razv.xyz/fonts/lexend-5.3.0.tar.gz",
+            .hash = "N-V-__8AAGjsAAAkNnDNAfqThGdjZHR18mBLCq4dioPJ8TgF",
+        },
+        .font_maple_mono = .{
+            .url = "https://s.razv.xyz/fonts/maple-mono-nf-7.9.tar.gz",
+            .hash = "N-V-__8AAIp6LABHrWIjxItEUhndhxus8b_ERpEGyYZutq9D",
+        },
+        .font_merriweather = .{
+            .url = "https://s.razv.xyz/fonts/merriweather-5.3.0.tar.gz",
+            .hash = "N-V-__8AANt5AQDA33txfzIo3uNxxS9dOHT-rsXc9BP3d8Yz",
+        },
+        .font_unbounded = .{
+            .url = "https://s.razv.xyz/fonts/unbounded-5.3.0.tar.gz",
+            .hash = "N-V-__8AADJfAACzhbT3mitPYQaQx-pivzn2Ai5Ya1vu05b9",
+        },
+        .font_protest_strike = .{
+            .url = "https://s.razv.xyz/fonts/protest-strike-5.3.0.tar.gz",
+            .hash = "N-V-__8AALtXAABvOKt09owxbaFlqQBLMIiWtuCi07wj8N4N",
+        },
+        .font_getai = .{
+            .url = "https://s.razv.xyz/fonts/getai-grotesk-display-1.0.0.tar.gz",
+            .hash = "N-V-__8AAP1QAABOg-O967arHpIV3V3XQuLujKDrOT8eBaXe",
+        },
+        .font_selera = .{
+            .url = "https://s.razv.xyz/fonts/selera-regular-1.0.0.tar.gz",
+            .hash = "N-V-__8AAE0rAAD6WHgdWuPUJIRzTgoV754v0jzYarQzDbaI",
+        },
+        .node_linux_x64 = .{
+            .url = "https://nodejs.org/dist/v26.4.0/node-v26.4.0-linux-x64.tar.xz",
+            .hash = "N-V-__8AAMU8Fg0m5SUttQ_t2hDU14Mvm-T76Jfp4wEucx6F",
+        },
+        .python_linux_x64 = .{
+            .url = "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.13.14+20260610-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+            .hash = "N-V-__8AAB-x3AXT5_6sXM4lhvVMR3K-s0lyHxr-wjRyFbnt",
+        },
+    },
+    .minimum_zig_version = "0.17.0-dev.892+54537285c",
+    .mach_zig_version = "2026.6.18-mach",
+    .paths = .{""},
+    .fingerprint = 0xc3f4bf63d016d283,
+}

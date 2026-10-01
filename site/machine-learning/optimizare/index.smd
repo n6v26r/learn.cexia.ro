@@ -1,0 +1,6 @@
+---
+.title = "Optimizare",
+.description = "Algoritmi care ajustează parametrii modelelor: de la gradient descent la momentum și Adam.",
+---
+
+Analizăm nu doar formulele de actualizare, ci și condiționarea problemei, stabilitatea numerică și alegerea ratei de învățare.

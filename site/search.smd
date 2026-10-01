@@ -1,0 +1,5 @@
+---
+.title = "Căutare",
+.description = "Caută în titlurile, explicațiile și exemplele de cod din toate lecțiile.",
+.layout = "search.shtml",
+---

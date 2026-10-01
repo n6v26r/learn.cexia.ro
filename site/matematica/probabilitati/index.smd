@@ -1,0 +1,6 @@
+---
+.title = "Probabilități și statistică",
+.description = "Variabile aleatoare, distribuții, estimare și raționament bayesian pentru modele predictive.",
+---
+
+Probabilitatea ne permite să reprezentăm incertitudinea, iar statistica ne ajută să distingem semnalul de variația accidentală.

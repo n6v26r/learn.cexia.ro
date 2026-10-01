@@ -1,0 +1,56 @@
+<extend template="base.shtml">
+<head id="head"></head>
+<main id="main" class="folder-page">
+	<ctx tag_names="$site.asset('tags.json').ziggy()">
+	<ctx :if="$page.hasContentSection('ftree')">
+		<article>
+			<ctx :loop="$page.contentSections()">
+				<ctx :html="$loop.it.html()"></ctx>
+			<ctx :if="$loop.it.id.eql('ftree')">
+				<ul class="lesson-grid">
+							<ctx :loop="$page.subpagesAlphabetic()">
+				<ctx :if="$loop.it.link().eql('/404/').not().and($loop.it.link().eql('/tags/').not()).and($loop.it.link().eql('/search/').not())">
+									<li>
+									<a href="$loop.it.link()" :text="$loop.it.title"></a>
+									<ctx :if="$loop.it.tags.empty.not()">
+									<div class="card-tags">
+										<ctx :loop="$loop.it.tags">
+											<a class="tag" href="$site.page('tags').link().suffix('#', $loop.it)" :text="$ctx.tag_names.get($loop.it)"></a>
+											</ctx>
+										</div>
+									</ctx>
+									<ctx :if="$loop.it.description.eql('').not()">
+										<p :text="$loop.it.description"></p>
+									</ctx>
+									</li>
+								</ctx>
+					</ctx>
+				</ul>
+			</ctx>
+		</ctx>
+	</article>
+	</ctx>
+	<ctx :if="$page.hasContentSection('ftree').not()">
+		<article :html="$page.content()"></article>
+		<ul class="lesson-grid">
+				<ctx :loop="$page.subpagesAlphabetic()">
+					<ctx :if="$loop.it.link().eql('/404/').not().and($loop.it.link().eql('/tags/').not()).and($loop.it.link().eql('/search/').not())">
+						<li>
+						<a href="$loop.it.link()" :text="$loop.it.title"></a>
+						<ctx :if="$loop.it.tags.empty.not()">
+							<div class="card-tags">
+								<ctx :loop="$loop.it.tags">
+									<a class="tag" href="$site.page('tags').link().suffix('#', $loop.it)" :text="$ctx.tag_names.get($loop.it)"></a>
+								</ctx>
+							</div>
+						</ctx>
+						<ctx :if="$loop.it.description.eql('').not()">
+							<p :text="$loop.it.description"></p>
+						</ctx>
+						</li>
+					</ctx>
+			</ctx>
+		</ul>
+	</ctx>
+	</ctx>
+</main>

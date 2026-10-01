@@ -1,0 +1,6 @@
+---
+.title = "Învățare supervizată",
+.description = "Clasificare și regresie folosind exemple etichetate, cu accent pe evaluare și generalizare.",
+---
+
+Modelele supervizate învață o relație între intrări și răspunsuri cunoscute. Separăm riguros datele de antrenare de cele de testare și evaluăm nu doar scorul, ci și tipurile de erori.

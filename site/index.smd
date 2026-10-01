@@ -1,0 +1,19 @@
+---
+.title = "Învață inteligență artificială, pas cu pas",
+.description = "Lecții practice CEXIA pentru elevi: de la primele instrucțiuni Python la modele de machine learning.",
+---
+
+[]($section.id('intro'))
+
+Acesta este spațiul de studiu CEXIA. Fiecare lecție combină explicații scurte, exemple care pot fi rulate și exerciții. Poți citi materialele direct în browser sau poți descărca notebook-ul pentru a lucra în Jupyter ori Google Colab.
+
+> []($block.attrs('info'))
+> **Cum înveți eficient?** Rulează fiecare celulă, schimbă valorile din exemple și încearcă exercițiile înainte să citești soluția. Codul se învață scriind cod.
+
+## Un traseu construit pentru practică
+
+Începe cu seria **Python**, chiar dacă ai mai programat. Noțiunile de acolo — colecții, funcții și gândire algoritmică — reapar în toate lecțiile de inteligență artificială. Continuă apoi cu **Machine Learning**, unde vei învăța să transformi datele în predicții verificabile.
+
+[]($section.id('ftree'))
+
+## Explorează modulele

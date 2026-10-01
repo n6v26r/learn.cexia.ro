@@ -1,0 +1,6 @@
+---
+.title = "Fundamente",
+.description = "Conceptele matematice și algoritmice care stau la baza antrenării rețelelor neuronale.",
+---
+
+Acest subcapitol dezvoltă intuiția necesară pentru gradient descent și backpropagation, folosind implementări mici care pot fi verificate manual.

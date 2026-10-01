@@ -1,0 +1,5 @@
+---
+.title = "Etichete și autori",
+.description = "Explorează lecțiile după unul sau mai multe subiecte și după autor.",
+.layout = "tags.shtml",
+---

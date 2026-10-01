@@ -1,0 +1,9 @@
+---
+.title = "01 · Regresia liniară de la zero",
+.description = "Construiește primul model predictiv și măsoară eroarea predicțiilor sale.",
+.tags = ["machine-learning", "numpy"],
+.custom = .{
+    .level = "Intermediar",
+    .duration = "75 min",
+},
+---

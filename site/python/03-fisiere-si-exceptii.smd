@@ -1,0 +1,26 @@
+---
+.title = "03 · Fișiere și excepții",
+.description = "O lecție text-only despre lucrul sigur cu fișiere, erori și contexte în Python.",
+.authors = ["cexia-learn"],
+.tags = ["python", "fisiere", "fundamente"],
+.custom = .{ .level = "Începător", .duration = "55 min" },
+---
+
+# Deschiderea sigură a unui fișier
+
+Blocul `with` închide fișierul chiar și atunci când apare o eroare. Pentru datele de intrare folosim validare explicită și mesaje care explică utilizatorului ce poate corecta.
+
+```python
+from pathlib import Path
+
+cale = Path("date.txt")
+try:
+    continut = cale.read_text(encoding="utf-8")
+except FileNotFoundError:
+    continut = ""
+    print(f"Nu există încă fișierul: {cale}")
+```
+
+# Exercițiu
+
+Scrie o funcție care citește numere, ignoră liniile goale și raportează separat liniile care nu pot fi convertite la `float`. Ce informații ai păstra pentru a depana un fișier mare?

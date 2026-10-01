@@ -1,0 +1,32 @@
+(() => {
+  const sections = [...document.querySelectorAll('details[name="lesson-sections"]')];
+  const current = sections.find((section) => section.querySelector("a.is-current"));
+  sections.forEach((section, index) => {
+    section.open = current ? section === current : index === 0;
+  });
+
+  const button = document.querySelector(".nav-toggle");
+  const sidebar = document.querySelector(".sidebar");
+  const scrim = document.querySelector(".nav-scrim");
+  if (!button || !sidebar || !scrim) return;
+
+  const close = () => {
+    document.body.classList.remove("nav-open");
+    button.setAttribute("aria-expanded", "false");
+    scrim.hidden = true;
+  };
+
+  button.addEventListener("click", () => {
+    const open = !document.body.classList.contains("nav-open");
+    document.body.classList.toggle("nav-open", open);
+    button.setAttribute("aria-expanded", String(open));
+    scrim.hidden = !open;
+  });
+  scrim.addEventListener("click", close);
+  sidebar.addEventListener("click", (event) => {
+    if (event.target.closest("a")) close();
+  });
+  addEventListener("keydown", (event) => {
+    if (event.key === "Escape") close();
+  });
+})();

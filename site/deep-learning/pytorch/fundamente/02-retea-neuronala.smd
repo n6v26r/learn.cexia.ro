@@ -1,0 +1,6 @@
+---
+.title = "02 · O rețea neuronală completă",
+.description = "Construiește un MLP, organizează datele în mini-batch-uri și diagnostichează bucla de antrenare.",
+.tags = ["pytorch", "retele-neuronale", "optimizare"],
+.custom = .{ .level = "Avansat", .duration = "150 min", .gpu = "Opțional" },
+---

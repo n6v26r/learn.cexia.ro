@@ -1,0 +1,9 @@
+---
+.title = "01 · Complexitate și căutare",
+.description = "Analizează costul unui algoritm și compară practic strategiile de căutare liniară și binară.",
+.tags = ["python", "algoritmica", "complexitate"],
+.custom = .{
+    .level = "Intermediar",
+    .duration = "90 min",
+},
+---

@@ -1,0 +1,6 @@
+---
+.title = "Algoritmică",
+.description = "Strategii de rezolvare, estimarea complexității și algoritmi fundamentali implementați în Python.",
+---
+
+Acest capitol face trecerea de la sintaxa limbajului la proiectarea algoritmilor. Învățăm să comparăm soluții, să justificăm corectitudinea și să estimăm resursele necesare.

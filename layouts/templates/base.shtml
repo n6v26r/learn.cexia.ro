@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+	<head id="head">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#f7f5f0">
+		<meta name="description" content="$page.description">
+		<link rel="icon" href="data:,">
+		<script>
+			(() => {
+				const themes = ["light", "dark"];
+				let theme = "light";
+				try {
+					const saved = localStorage.getItem("theme");
+					if (themes.includes(saved)) theme = saved;
+				} catch {}
+				document.documentElement.dataset.theme = theme;
+				document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#0a1a2b" : "#f7f5f0";
+			})();
+		</script>
+		<title :text="$page.title"></title>
+		<link type="text/css" rel="stylesheet" href="$site.asset('style.css').link()">
+		<link type="text/css" rel="stylesheet" href="$site.asset('highlight.css').link()">
+		<script defer src="$site.asset('theme.js').link()"></script>
+		<script defer src="$site.asset('navigation.js').link()"></script>
+		<script defer src="$site.asset('search.js').link()"></script>
+		<!-- katex -->
+		<link type="text/css" rel="stylesheet" href="$site.asset('katex.min.css').link()">
+		<script defer src="$site.asset('katex.min.js').link()"></script>
+		<script defer src="$site.asset('render-katex.js').link()"></script>
+		<!-- /katex -->
+		<super>
+	</head>
+	<body id="body">
+		<a class="skip-link" href="#main">Sari la conținut</a>
+		<header class="mobile-header">
+			<a class="brand brand-mobile" href="$site.index().link()">
+				<img src="$site.asset('cexia-wordmark-light.png').link()" alt="CEXIA">
+				<span>Lecții</span>
+			</a>
+			<button class="nav-toggle" type="button" aria-label="Deschide navigarea" aria-expanded="false" aria-controls="lesson-navigation"><span></span><span></span></button>
+		</header>
+		<div class="site-shell">
+			<aside class="sidebar" id="lesson-navigation">
+				<div class="sidebar-inner">
+					<a class="brand" href="$site.index().link()">
+						<img src="$site.asset('cexia-wordmark-light.png').link()" alt="CEXIA">
+						<span>Lecții</span>
+					</a>
+					<form class="sidebar-search" action="$site.page('search').link()" method="get" role="search">
+						<label class="visually-hidden" for="sidebar-search-input">Caută în lecții</label>
+						<div class="sidebar-search-field">
+							<input id="sidebar-search-input" name="q" type="search" placeholder="Caută în lecții" autocomplete="off" data-search-input aria-autocomplete="list" aria-controls="quick-search-results" aria-expanded="false">
+							<button type="submit" aria-label="Caută">
+								<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"></circle><path d="m10.5 10.5 3 3"></path></svg>
+							</button>
+						</div>
+						<div class="quick-search" hidden>
+							<p class="search-status" aria-live="polite"></p>
+							<ul id="quick-search-results" class="search-results quick-search-results" role="listbox"></ul>
+						</div>
+					</form>
+					<nav class="lesson-tree" aria-label="Lecții">
+						<a class="$site.index().isCurrent().then('tree-home is-current', 'tree-home')" href="$site.index().link()">Introducere</a>
+						<a class="$site.page('tags').isCurrent().then('tree-home tree-tags is-current', 'tree-home tree-tags')" href="$site.page('tags').link()">Etichete</a>
+						<ul>
+							<ctx :loop="$site.index().subpagesAlphabetic()">
+								<ctx :if="$loop.it.link().eql('/404/').not().and($loop.it.link().eql('/tags/').not()).and($loop.it.link().eql('/search/').not())">
+									<ctx section="$loop.it">
+										<li class="tree-section">
+										<details name="lesson-sections" open>
+												<summary><a class="$ctx.section.isCurrent().then('tree-section-link is-current', 'tree-section-link')" href="$ctx.section.link()" :text="$ctx.section.title"></a></summary>
+												<ul>
+													<ctx :loop="$ctx.section.subpagesAlphabetic()">
+														<ctx child="$loop.it">
+															<li>
+																<ctx :if="$ctx.child.custom.get?('section')">
+																			<div class="tree-directory">
+																				<a class="$ctx.child.isCurrent().then('is-current', 'tree-directory-link')" href="$ctx.child.link()" :text="$ctx.child.title"></a>
+																				<ul>
+																			<ctx :loop="$ctx.child.subpagesAlphabetic()">
+																			<ctx branch="$loop.it">
+																				<li>
+																					<ctx :if="$ctx.branch.custom.get?('section')">
+																															<div class="tree-directory">
+																																<a class="$ctx.branch.isCurrent().then('is-current', 'tree-directory-link')" href="$ctx.branch.link()" :text="$ctx.branch.title"></a>
+																							<ul>
+																								<ctx :loop="$ctx.branch.subpagesAlphabetic()">
+																									<li><a class="$loop.it.isCurrent().then('is-current')" href="$loop.it.link()" :text="$loop.it.title"></a></li>
+																								</ctx>
+																							</ul>
+																															</div>
+																					</ctx>
+																			<ctx :if="$ctx.branch.custom.has('section').not()">
+																						<a class="$ctx.branch.isCurrent().then('is-current')" href="$ctx.branch.link()" :text="$ctx.branch.title"></a>
+																					</ctx>
+																					</li>
+																			</ctx>
+																		</ctx>
+																		</ul>
+																					</div>
+																</ctx>
+											<ctx :if="$ctx.child.custom.has('section').not()">
+																	<a class="$ctx.child.isCurrent().then('is-current')" href="$ctx.child.link()" :text="$ctx.child.title"></a>
+																</ctx>
+															</li>
+													</ctx>
+												</ctx>
+												</ul>
+											</details>
+										</li>
+									</ctx>
+								</ctx>
+							</ctx>
+						</ul>
+					</nav>
+					<div class="sidebar-footer">
+						<span>Un proiect CEXIA</span>
+						<div class="sidebar-tools">
+							<a href="https://cexia.ro">cexia.ro</a>
+							<button class="theme-toggle" type="button" aria-label="Activează tema întunecată" title="Schimbă tema">
+								<svg class="theme-icon-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+								<svg class="theme-icon-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8a8.5 8.5 0 1 0 11.3 11.3Z"></path></svg>
+							</button>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<div class="page-column">
+				<main id="main">
+					<ctx :if="$site.index().isCurrent().not()">
+						<nav class="breadcrumbs" aria-label="Navigare contextuală" :html="$page.custom.get('crumbs')"></nav>
+					</ctx>
+					<header class="page-heading">
+						<h1 class="title" :text="$page.title"></h1>
+						<ctx :if="$page.authors.empty.not()"><ctx author_names="$site.asset('authors.json').ziggy()"><p class="page-authors"><ctx :if="$page.authors.len.eq(1)">Autor</ctx><ctx :if="$page.authors.len.eq(1).not()">Autori</ctx>: <ctx :loop="$page.authors"><strong class="author"><a href="$site.page('tags').link().suffix('#author-', $loop.it)" :text="$ctx.author_names.get($loop.it)"></a></strong></ctx></p></ctx></ctx>
+						<ctx :if="$page.description.eql('').not()"><p class="lede" :text="$page.description"></p></ctx>
+						<ctx :if="$page.tags.empty.not()"><ctx tag_names="$site.asset('tags.json').ziggy()"><p class="page-tags"><ctx :loop="$page.tags"><a class="tag" href="$site.page('tags').link().suffix('#', $loop.it)" :text="$ctx.tag_names.get($loop.it)"></a></ctx></p></ctx></ctx>
+					</header>
+					<super>
+				</main>
+				<ctx :if="$page.footnotes?()">
+					<section id="footnotes">
+						<ol :loop="$if">
+							<li id="$loop.it.def_id">
+								<ctx :html="$loop.it.html()"></ctx>
+								<a :loop="$loop.it.ref_ids" href="$loop.it.prefix('#')">↩</a>
+							</li>
+						</ol>
+					</section>
+				</ctx>
+				<footer class="site-footer"><p>Conținut educațional CEXIA</p><a href="$site.index().link()">Înapoi la lecții</a></footer>
+			</div>
+		</div>
+		<div class="nav-scrim" hidden></div>
+	</body>
+</html>

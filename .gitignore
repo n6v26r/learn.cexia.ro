@@ -1,0 +1,30 @@
+.zig-cache/
+zig-out/
+zig-pkg/
+
+node_modules/
+npm-debug.log*
+
+assets/fonts/
+assets/katex.min.css
+assets/katex.min.js
+assets/render-katex.js
+
+# Python and notebook scratch files
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Editor and OS metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+.vercel

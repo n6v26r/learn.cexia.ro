@@ -1,0 +1,178 @@
+<extend template="base.shtml">
+<head id="head">
+	<link type="text/css" rel="stylesheet" href="$site.asset('notebook.css').link()">
+</head>
+<main id="main">
+	<header class="notebook-header">
+		<a class="lesson-back" href="$page.parentSection().link()" aria-label="Înapoi" title="Înapoi">
+			<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13 8H3m4-4L3 8l4 4"></path></svg>
+		</a>
+		<div class="lesson-meta">
+			<ctx :if="$page.custom.get?('level')"><span><small>Nivel</small><strong :text="$if"></strong></span></ctx>
+			<ctx :if="$page.custom.get?('duration')"><span><small>Durată</small><strong :text="$if"></strong></span></ctx>
+			<ctx :if="$page.custom.get?('python')"><span><small>Python</small><strong :text="$if"></strong></span></ctx>
+			<ctx :if="$page.custom.get?('gpu')"><span><small>GPU</small><strong :text="$if"></strong></span></ctx>
+			<ctx :if="$page.custom.get?('runtime')"><span><small>Runtime</small><strong :text="$if"></strong></span></ctx>
+			<ctx :if="$page.custom.get?('memory')"><span><small>Memory</small><strong :text="$if"></strong></span></ctx>
+			<ctx :if="$page.custom.get?('cpu')"><span><small>CPU</small><strong :text="$if"></strong></span></ctx>
+		</div>
+		<p class="notebook-actions">
+			<a class="button" href="$page.asset('notebook.ipynb').link()" download>
+				Descarcă notebook-ul
+				<span class="download-icon" aria-hidden="true">
+					<svg viewBox="0 0 16 16" focusable="false"><path d="M8 2v8m0 0 3-3m-3 3L5 7M3 13.5h10"></path></svg>
+				</span>
+			</a>
+			<ctx :if="$page.custom.get?('problem_url')">
+				<a class="button" href="$if" target="_blank" rel="noopener noreferrer">problem</a>
+			</ctx>
+		</p>
+			<ctx :if="$page.custom.get?('result')">
+				<ctx result="$if">
+					<ctx :if="$ctx.result.case?('full')">
+						<ctx board="$if">
+							<table class="result-table">
+								<thead>
+									<tr>
+										<th></th>
+										<ctx :if="$ctx.board.case?('one')"><th>result</th></ctx>
+										<ctx :if="$ctx.board.case?('split')"><th colspan="2">result</th></ctx>
+									</tr>
+									<ctx :if="$page.custom.get?('result_split')">
+										<tr><th></th><th>public</th><th>private</th></tr>
+									</ctx>
+								</thead>
+								<tbody>
+									<ctx :if="$page.custom.get?('result_has_score')">
+										<tr>
+											<th>score</th>
+											<ctx :if="$ctx.board.case?('one')">
+												<ctx value="$if"><td :text="$ctx.value.getOr('score_text', '')"></td></ctx>
+											</ctx>
+											<ctx :if="$ctx.board.case?('split')">
+												<ctx public="$if.get('public')" private="$if.get('private')">
+													<td :text="$ctx.public.getOr('score_text', '')"></td>
+													<td :text="$ctx.private.getOr('score_text', '')"></td>
+												</ctx>
+											</ctx>
+										</tr>
+									</ctx>
+									<ctx :if="$page.custom.get?('result_has_metric')">
+										<tr>
+											<th>metric</th>
+											<ctx :if="$ctx.board.case?('one')">
+												<ctx value="$if"><td :text="$ctx.value.getOr('metric_text', '')"></td></ctx>
+											</ctx>
+											<ctx :if="$ctx.board.case?('split')">
+												<ctx public="$if.get('public')" private="$if.get('private')">
+													<td :text="$ctx.public.getOr('metric_text', '')"></td>
+													<td :text="$ctx.private.getOr('metric_text', '')"></td>
+												</ctx>
+											</ctx>
+										</tr>
+									</ctx>
+								</tbody>
+							</table>
+						</ctx>
+					</ctx>
+					<ctx :if="$ctx.result.case?('subtasks')">
+						<ctx items="$if">
+							<table class="result-table">
+								<thead>
+									<tr>
+										<th></th>
+										<ctx :loop="$ctx.items">
+											<ctx :if="$loop.it.case?('one')"><th>subtask <span :text="$loop.idx"></span></th></ctx>
+											<ctx :if="$loop.it.case?('split')"><th colspan="2">subtask <span :text="$loop.idx"></span></th></ctx>
+											<ctx :if="$loop.it.case?('total')">
+												<ctx board="$if">
+													<ctx :if="$ctx.board.case?('one')"><th>total</th></ctx>
+													<ctx :if="$ctx.board.case?('split')"><th colspan="2">total</th></ctx>
+												</ctx>
+											</ctx>
+										</ctx>
+									</tr>
+									<ctx :if="$page.custom.get?('result_split')">
+										<tr>
+											<th></th>
+											<ctx :loop="$ctx.items">
+												<ctx :if="$loop.it.case?('one')"><th>all</th></ctx>
+												<ctx :if="$loop.it.case?('split')"><th>public</th><th>private</th></ctx>
+												<ctx :if="$loop.it.case?('total')">
+													<ctx board="$if">
+														<ctx :if="$ctx.board.case?('one')"><th>all</th></ctx>
+														<ctx :if="$ctx.board.case?('split')"><th>public</th><th>private</th></ctx>
+													</ctx>
+												</ctx>
+											</ctx>
+										</tr>
+									</ctx>
+								</thead>
+								<tbody>
+									<ctx :if="$page.custom.get?('result_has_score')">
+										<tr>
+											<th>score</th>
+											<ctx :loop="$ctx.items">
+												<ctx :if="$loop.it.case?('one')">
+													<ctx value="$if"><td :text="$ctx.value.getOr('score_text', '')"></td></ctx>
+												</ctx>
+												<ctx :if="$loop.it.case?('split')">
+													<ctx public="$if.get('public')" private="$if.get('private')">
+														<td :text="$ctx.public.getOr('score_text', '')"></td>
+														<td :text="$ctx.private.getOr('score_text', '')"></td>
+													</ctx>
+												</ctx>
+												<ctx :if="$loop.it.case?('total')">
+													<ctx board="$if">
+														<ctx :if="$ctx.board.case?('one')">
+															<ctx value="$if"><td :text="$ctx.value.getOr('score_text', '')"></td></ctx>
+														</ctx>
+														<ctx :if="$ctx.board.case?('split')">
+															<ctx public="$if.get('public')" private="$if.get('private')">
+																<td :text="$ctx.public.getOr('score_text', '')"></td>
+																<td :text="$ctx.private.getOr('score_text', '')"></td>
+															</ctx>
+														</ctx>
+													</ctx>
+												</ctx>
+											</ctx>
+										</tr>
+									</ctx>
+									<ctx :if="$page.custom.get?('result_has_metric')">
+										<tr>
+											<th>metric</th>
+											<ctx :loop="$ctx.items">
+												<ctx :if="$loop.it.case?('one')">
+													<ctx value="$if"><td :text="$ctx.value.getOr('metric_text', '')"></td></ctx>
+												</ctx>
+												<ctx :if="$loop.it.case?('split')">
+													<ctx public="$if.get('public')" private="$if.get('private')">
+														<td :text="$ctx.public.getOr('metric_text', '')"></td>
+														<td :text="$ctx.private.getOr('metric_text', '')"></td>
+													</ctx>
+												</ctx>
+												<ctx :if="$loop.it.case?('total')">
+													<ctx board="$if">
+														<ctx :if="$ctx.board.case?('one')">
+															<ctx value="$if"><td :text="$ctx.value.getOr('metric_text', '')"></td></ctx>
+														</ctx>
+														<ctx :if="$ctx.board.case?('split')">
+															<ctx public="$if.get('public')" private="$if.get('private')">
+																<td :text="$ctx.public.getOr('metric_text', '')"></td>
+																<td :text="$ctx.private.getOr('metric_text', '')"></td>
+															</ctx>
+														</ctx>
+													</ctx>
+												</ctx>
+											</ctx>
+										</tr>
+									</ctx>
+								</tbody>
+							</table>
+						</ctx>
+					</ctx>
+				</ctx>
+			</ctx>
+		</header>
+	<article class="notebook-content" :html="$page.content()"></article>
+</main>

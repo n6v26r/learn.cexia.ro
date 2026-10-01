@@ -1,0 +1,9 @@
+---
+.title = "01 · Clasificare cu k-NN",
+.description = "Construiește un clasificator bazat pe vecini, normalizează trăsăturile și interpretează matricea de confuzie.",
+.tags = ["machine-learning", "clasificare", "evaluare"],
+.custom = .{
+    .level = "Intermediar",
+    .duration = "110 min",
+},
+---

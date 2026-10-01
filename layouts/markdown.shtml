@@ -1,0 +1,16 @@
+<extend template="base.shtml">
+<head id="head">
+	<link type="text/css" rel="stylesheet" href="$site.asset('notebook.css').link()">
+</head>
+<main id="main">
+	<header class="notebook-header">
+		<a class="lesson-back" href="$page.parentSection().link()" aria-label="Înapoi" title="Înapoi">
+			<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13 8H3m4-4L3 8l4 4"></path></svg>
+		</a>
+		<div class="lesson-meta">
+			<ctx :if="$page.custom.get?('level')"><span><small>Nivel</small><strong :text="$if"></strong></span></ctx>
+			<ctx :if="$page.custom.get?('duration')"><span><small>Durată</small><strong :text="$if"></strong></span></ctx>
+		</div>
+	</header>
+	<article class="notebook-content" :html="$page.content()"></article>
+</main>

@@ -1,0 +1,9 @@
+---
+.title = "01 · Perceptronul și gradient descent",
+.description = "Implementează un neuron artificial, derivă gradientele și urmărește complet procesul de antrenare.",
+.tags = ["deep-learning", "optimizare", "matematica"],
+.custom = .{
+    .level = "Avansat",
+    .duration = "130 min",
+},
+---

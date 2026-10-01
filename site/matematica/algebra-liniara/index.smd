@@ -1,0 +1,6 @@
+---
+.title = "Algebră liniară",
+.description = "Vectori, matrici și transformări liniare — limbajul în care sunt reprezentate datele și modelele.",
+---
+
+De la produsul scalar la descompuneri matriciale, urmărim atât calculele, cât și sensul geometric al operațiilor.

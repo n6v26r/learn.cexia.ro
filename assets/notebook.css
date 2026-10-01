@@ -1,0 +1,233 @@
+.notebook-header {
+  margin-bottom: 1.4rem;
+}
+
+.notebook-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.1rem 0 1rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--subtext1);
+  font-family: var(--font-wide);
+  font-size: 0.68rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.button::before {
+  content: "[";
+  margin-right: 0.12rem;
+  color: var(--surface2);
+}
+
+.button::after {
+  content: "]";
+  margin-left: 0.12rem;
+  color: var(--surface2);
+}
+
+.button:hover {
+  color: var(--accent);
+}
+
+.katex {
+  color: var(--text);
+  font-size: 1.05em;
+}
+
+.katex svg {
+  margin: 0;
+  max-width: none;
+}
+
+.result-table {
+  display: block;
+  overflow-x: auto;
+  width: max-content;
+  max-width: 100%;
+  margin: 0.7rem 0 0;
+  border: 1px dotted var(--surface2);
+  border-collapse: collapse;
+  line-height: 1.15;
+}
+
+.result-table th,
+.result-table td {
+  padding: 0.14rem 0.55rem 0.16rem;
+  border: 1px dotted var(--surface1);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  text-align: right;
+}
+
+.result-table th {
+  color: var(--subtext0);
+  font-family: var(--font-wide);
+  font-size: 0.58rem;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.result-table tbody th {
+  text-align: left;
+}
+
+.nb-cell {
+  position: relative;
+  margin: 0;
+}
+
+.nb-cell+.nb-cell {
+  margin-top: 1.9rem;
+}
+
+.nb-cell+.nb-cell::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -0.95rem;
+  left: 0;
+  border-top: 1px dotted var(--surface1);
+}
+
+.nb-cell> :last-child {
+  margin-bottom: 0;
+}
+
+.nb-markdown> :first-child {
+  margin-top: 0;
+}
+
+.nb-code pre {
+  margin: 0;
+  padding: 1rem 0;
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  border-radius: 0;
+}
+
+.nb-error {
+  color: var(--subtext1);
+}
+
+.nb-error .ansi-black {
+  color: var(--overlay1);
+}
+
+.nb-error .ansi-red {
+  color: var(--red);
+}
+
+.nb-error .ansi-green {
+  color: var(--green);
+}
+
+.nb-error .ansi-yellow {
+  color: var(--yellow);
+}
+
+.nb-error .ansi-blue {
+  color: var(--blue);
+}
+
+.nb-error .ansi-magenta {
+  color: var(--mauve);
+}
+
+.nb-error .ansi-cyan {
+  color: var(--sky);
+}
+
+.nb-error .ansi-white {
+  color: var(--text);
+}
+
+.nb-error .ansi-bg-black {
+  background-color: transparent;
+}
+
+.nb-error .ansi-bg-red {
+  background-color: transparent;
+}
+
+.nb-error .ansi-bg-green {
+  background-color: transparent;
+}
+
+.nb-error .ansi-bg-yellow {
+  background-color: transparent;
+}
+
+.nb-error .ansi-bg-blue {
+  background-color: transparent;
+}
+
+.nb-error .ansi-bg-magenta {
+  background-color: transparent;
+}
+
+.nb-error .ansi-bg-cyan {
+  background-color: transparent;
+}
+
+.nb-error .ansi-bg-white {
+  background-color: transparent;
+}
+
+.nb-error .ansi-bold {
+  font-weight: 700;
+}
+
+.nb-error .ansi-dim {
+  opacity: 0.72;
+}
+
+.nb-code>pre:first-child~* {
+  display: flow-root;
+  margin: 0;
+  padding-left: 1rem;
+  border: 0;
+  border-left: 1px dotted var(--line);
+}
+
+.nb-code>pre:first-child~pre {
+  padding-top: 0.75rem;
+  padding-bottom: 0.25rem;
+}
+
+.nb-code>pre:first-child~*+pre {
+  padding-top: 0.15rem;
+}
+
+.nb-code>pre:first-child~p,
+.nb-code>pre:first-child~figure {
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+}
+
+.nb-cell>img,
+.nb-cell>svg,
+.nb-cell figure>img,
+.nb-cell figure>svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.7rem 0 1.2rem;
+}
+
+.nb-code>pre:first-child~*>img,
+.nb-code>pre:first-child~*>svg,
+.nb-code>pre:first-child~* figure>img,
+.nb-code>pre:first-child~* figure>svg {
+  margin: 0;
+}
