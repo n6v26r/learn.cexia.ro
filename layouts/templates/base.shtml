@@ -178,6 +178,17 @@
 											</ctx>
 										</ctx>
 									</ctx>
+									<ctx :if="$ctx.parent.hasNext().not()">
+										<ctx grandparent="$ctx.parent.parentSection()">
+											<ctx :if="$ctx.grandparent.nextPage?()">
+												<ctx next="$if">
+													<ctx :if="$ctx.next.custom.get?('section')">
+														<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
+													</ctx>
+												</ctx>
+											</ctx>
+										</ctx>
+									</ctx>
 								</ctx>
 							</ctx>
 						</nav>
