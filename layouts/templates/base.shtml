@@ -187,6 +187,19 @@
 													</ctx>
 												</ctx>
 											</ctx>
+							<ctx :if="$ctx.grandparent.hasNext().not()">
+								<ctx greatgrandparent="$ctx.grandparent.parentSection()">
+									<ctx :if="$ctx.greatgrandparent.link().eql($site.index().link()).not()">
+										<ctx :if="$ctx.greatgrandparent.nextPage?()">
+											<ctx next="$if">
+												<ctx :if="$ctx.next.custom.get?('section')">
+													<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
+												</ctx>
+											</ctx>
+										</ctx>
+									</ctx>
+												</ctx>
+											</ctx>
 										</ctx>
 									</ctx>
 								</ctx>
