@@ -52,6 +52,12 @@ site/python/02-text-lesson.smd
 ```
 
 Its frontmatter is followed by the lesson body.
+
+Read the [SuperMD documentation](https://zine-ssg.io/docs/supermd/) before
+authoring content that uses sections, blocks, assets, or other directives. The
+[SuperMD Scripty reference](https://zine-ssg.io/docs/supermd/scripty/) lists the
+directives available inside expressions such as `[]($section.id('intro'))`.
+
 ### Directory page
 
 Add `index.smd` inside a directory to define its landing page:
@@ -62,7 +68,8 @@ site/python/algoritmica/index.smd
 ```
 
 `site/index.smd` defines the homepage. Its `ftree` content section marks where
-the module cards are rendered. If abset, the file-tree is rendered at the end of the page.
+the module cards are rendered. If absent, the file tree is rendered at the end
+of the page.
 
 ## Frontmatter
 
@@ -106,12 +113,8 @@ zig build release
 
 - `zig build` writes the development site to `zig-out/dist`.
 - `zig build test` exercises the source-tree hashing used by the watcher.
-- `zig build release` writes the optimized deployment to `zig-out/release`.
+- `zig build release` writes the optimized site to `zig-out/release`.
 
 Keep generator changes small. Prefer templates, CSS, or focused browser scripts
 when the requested behavior does not require Zig. Do not commit downloaded
 dependencies, generated fonts, caches, notebook checkpoints, or `zig-out/`.
-
-## Deployment
-
-Auto deployment in not set up yet.

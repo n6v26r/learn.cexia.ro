@@ -39,3 +39,42 @@ jobs:
 
       - name: Verify release output
         run: test -f zig-out/release/index.html
+
+      - name: Upload release site
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: release-site
+          path: zig-out/release
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 1
+
+  deploy:
+    name: Deploy production
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions: {}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment:
+      name: production
+
+    steps:
+      - name: Download release site
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: release-site
+          path: zig-out/release
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: >-
+          npx --yes vercel@59.16.0 deploy
+          --cwd zig-out/release
+          --prod
+          --yes
+          --token "$VERCEL_TOKEN"

@@ -55,7 +55,7 @@ The host and port can be changed when necessary:
 zig build serve -Dserve-host=0.0.0.0 -Dserve-port=8080
 ```
 
-Build the minified, cache-busted deployment output with:
+Build the minified, cache-busted site with:
 
 ```sh
 zig build release
