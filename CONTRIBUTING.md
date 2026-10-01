@@ -26,8 +26,8 @@ compiler and platform requirements.
 
 ## Add a lesson
 
-Lesson sources belong in `site/`. Keep filenames ordered and URL-safe because
-the directory hierarchy determines both URLs and navigation.
+Lesson sources belong in `site/`. Keep filenames URL-safe because the directory
+hierarchy determines both URLs and navigation.
 
 ### Notebook lesson
 
@@ -79,6 +79,7 @@ A typical lesson sidecar or standalone document begins with:
 ---
 .title = "01 · Example lesson",
 .description = "A concise summary shown in lesson listings.",
+.date = .unix(0),
 .authors = ["cexia-learn"],
 .tags = ["python", "fundamente"],
 .custom = .{
@@ -94,12 +95,28 @@ Supported page metadata includes `title`, `description`, `authors`, `tags`,
 Notebook Python version and execution time are derived automatically when the
 source notebook provides them.
 
+Navigation and directory listings order pages by date, with smaller values
+first. Set `.date = .unix(number)` on both lessons and directory `index.smd`
+pages; the number acts as their rank among siblings. Pages with the same or no
+value are ordered by their URL, so use distinct values whenever their relative
+position matters. There is no separate `.order` field.
+
 Tags and authors use stable identifiers in frontmatter. Add their displayed
 names to `assets/tags.json` and `assets/authors.json`. Unknown identifiers do
 not receive a human-readable label on the filtering page.
 
 Breadcrumbs and default layouts are generated from the project structure. Only
 set `layout` for a genuinely custom page such as a special page.
+
+## Content license
+
+Original lesson text, examples, notebook content, and lesson metadata are
+dedicated to the public domain under [CC0 1.0 Universal](LICENSE-CONTENT).
+Contributors must only submit material for which they have the necessary rights.
+
+The dedication does not cover third-party fonts, libraries, images, logos,
+trademarks, personal data, or other externally licensed material. See
+[LICENSE-CONTENT](LICENSE-CONTENT) for the complete scope and exclusions.
 
 ## Validate a change
 

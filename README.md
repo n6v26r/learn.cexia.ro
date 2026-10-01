@@ -72,7 +72,8 @@ All source content lives in `site/`. A lesson can be either:
 - a standalone `.smd` lesson.
 
 `index.smd` defines the landing page for its directory. The directory hierarchy
-becomes both the URL hierarchy and the navigation tree.
+becomes both the URL hierarchy and the navigation tree; pages in each directory
+are listed by ascending frontmatter `date` rank.
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the content formats, metadata fields,
 and validation workflow.
 

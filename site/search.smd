@@ -1,5 +1,6 @@
 ---
 .title = "Căutare",
 .description = "Caută în titlurile, explicațiile și exemplele de cod din toate lecțiile.",
+.date = .unix(1000),
 .layout = "search.shtml",
 ---

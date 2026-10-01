@@ -1,5 +1,6 @@
 ---
 .title = "Etichete și autori",
 .description = "Explorează lecțiile după unul sau mai multe subiecte și după autor.",
+.date = .unix(1001),
 .layout = "tags.shtml",
 ---

@@ -9,6 +9,7 @@ pub const image_mimes = .{
 
 pub const Date = union(enum) {
     date: []const u8,
+    unix: i64,
 };
 
 pub const ResultValue = struct {

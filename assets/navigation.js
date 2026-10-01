@@ -1,9 +1,31 @@
 (() => {
   const sections = [...document.querySelectorAll('details[name="lesson-sections"]')];
   const current = sections.find((section) => section.querySelector("a.is-current"));
-  sections.forEach((section, index) => {
-    section.open = current ? section === current : index === 0;
+  sections.forEach((section) => {
+    section.open = section === current;
   });
+
+  const desktopButton = document.querySelector(".sidebar-toggle");
+  if (desktopButton) {
+    const updateDesktopButton = () => {
+      const collapsed = document.documentElement.dataset.sidebar === "collapsed";
+      const label = collapsed ? "Arată navigarea" : "Ascunde navigarea";
+      desktopButton.setAttribute("aria-expanded", String(!collapsed));
+      desktopButton.setAttribute("aria-label", label);
+      desktopButton.title = label;
+    };
+
+    updateDesktopButton();
+    desktopButton.addEventListener("click", () => {
+      const collapsed = document.documentElement.dataset.sidebar !== "collapsed";
+      if (collapsed) document.documentElement.dataset.sidebar = "collapsed";
+      else delete document.documentElement.dataset.sidebar;
+      try {
+        localStorage.setItem("sidebar", collapsed ? "collapsed" : "expanded");
+      } catch {}
+      updateDesktopButton();
+    });
+  }
 
   const button = document.querySelector(".nav-toggle");
   const sidebar = document.querySelector(".sidebar");

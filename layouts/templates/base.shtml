@@ -14,6 +14,9 @@
 					const saved = localStorage.getItem("theme");
 					if (themes.includes(saved)) theme = saved;
 				} catch {}
+				try {
+					if (localStorage.getItem("sidebar") === "collapsed") document.documentElement.dataset.sidebar = "collapsed";
+				} catch {}
 				document.documentElement.dataset.theme = theme;
 				document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#0a1a2b" : "#f7f5f0";
 			})();
@@ -64,29 +67,31 @@
 						<a class="$site.index().isCurrent().then('tree-home is-current', 'tree-home')" href="$site.index().link()">Introducere</a>
 						<a class="$site.page('tags').isCurrent().then('tree-home tree-tags is-current', 'tree-home tree-tags')" href="$site.page('tags').link()">Etichete</a>
 						<ul>
-							<ctx :loop="$site.index().subpagesAlphabetic()">
-								<ctx :if="$loop.it.link().eql('/404/').not().and($loop.it.link().eql('/tags/').not()).and($loop.it.link().eql('/search/').not())">
-									<ctx section="$loop.it">
+							<ctx :loop="$site.index().subpages()">
+								<ctx section="$site.index().subpages().at($loop.len.minus($loop.idx))">
+								<ctx :if="$ctx.section.link().eql('/404/').not().and($ctx.section.link().eql('/tags/').not()).and($ctx.section.link().eql('/search/').not())">
 										<li class="tree-section">
-										<details name="lesson-sections" open>
+										<details name="lesson-sections">
 												<summary><a class="$ctx.section.isCurrent().then('tree-section-link is-current', 'tree-section-link')" href="$ctx.section.link()" :text="$ctx.section.title"></a></summary>
 												<ul>
-													<ctx :loop="$ctx.section.subpagesAlphabetic()">
-														<ctx child="$loop.it">
+											<ctx :loop="$ctx.section.subpages()">
+														<ctx child="$ctx.section.subpages().at($loop.len.minus($loop.idx))">
 															<li>
 																<ctx :if="$ctx.child.custom.get?('section')">
 																			<div class="tree-directory">
 																				<a class="$ctx.child.isCurrent().then('is-current', 'tree-directory-link')" href="$ctx.child.link()" :text="$ctx.child.title"></a>
 																				<ul>
-																			<ctx :loop="$ctx.child.subpagesAlphabetic()">
-																			<ctx branch="$loop.it">
+															<ctx :loop="$ctx.child.subpages()">
+																			<ctx branch="$ctx.child.subpages().at($loop.len.minus($loop.idx))">
 																				<li>
 																					<ctx :if="$ctx.branch.custom.get?('section')">
 																															<div class="tree-directory">
 																																<a class="$ctx.branch.isCurrent().then('is-current', 'tree-directory-link')" href="$ctx.branch.link()" :text="$ctx.branch.title"></a>
 																							<ul>
-																								<ctx :loop="$ctx.branch.subpagesAlphabetic()">
-																									<li><a class="$loop.it.isCurrent().then('is-current')" href="$loop.it.link()" :text="$loop.it.title"></a></li>
+																				<ctx :loop="$ctx.branch.subpages()">
+																					<ctx leaf="$ctx.branch.subpages().at($loop.len.minus($loop.idx))">
+																									<li><a class="$ctx.leaf.isCurrent().then('is-current')" href="$ctx.leaf.link()" :text="$ctx.leaf.title"></a></li>
+																					</ctx>
 																								</ctx>
 																							</ul>
 																															</div>
@@ -126,6 +131,9 @@
 					</div>
 				</div>
 			</aside>
+			<button class="sidebar-toggle" type="button" aria-label="Ascunde navigarea" aria-expanded="true" aria-controls="lesson-navigation" title="Ascunde navigarea">
+				<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m10 3-5 5 5 5"></path></svg>
+			</button>
 			<div class="page-column">
 				<main id="main">
 					<ctx :if="$site.index().isCurrent().not()">
@@ -138,6 +146,42 @@
 						<ctx :if="$page.tags.empty.not()"><ctx tag_names="$site.asset('tags.json').ziggy()"><p class="page-tags"><ctx :loop="$page.tags"><a class="tag" href="$site.page('tags').link().suffix('#', $loop.it)" :text="$ctx.tag_names.get($loop.it)"></a></ctx></p></ctx></ctx>
 					</header>
 					<super>
+					<ctx :if="$site.index().isCurrent().not().and($page.layout.eql('notebook.shtml').or($page.layout.eql('markdown.shtml')).or($page.layout.eql('folder.shtml')))">
+						<nav class="lesson-pagination" aria-label="Navigare între lecții">
+							<ctx :if="$page.hasPrev()">
+								<ctx :if="$page.prevPage?()">
+									<ctx previous="$if">
+										<a class="lesson-previous" href="$ctx.previous.link()"><small><span aria-hidden="true">←</span> Anterior</small><strong :text="$ctx.previous.title"></strong></a>
+									</ctx>
+								</ctx>
+							</ctx>
+							<ctx :if="$page.hasPrev().not()">
+								<ctx previous="$page.parentSection()">
+									<a class="lesson-previous" href="$ctx.previous.link()"><small><span aria-hidden="true">←</span> Anterior</small><strong :text="$ctx.previous.title"></strong></a>
+								</ctx>
+							</ctx>
+							<ctx :if="$page.hasNext()">
+								<ctx :if="$page.nextPage?()">
+									<ctx next="$if">
+										<ctx :if="$ctx.next.layout.eql('notebook.shtml').or($ctx.next.layout.eql('markdown.shtml')).or($ctx.next.layout.eql('folder.shtml'))">
+											<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
+										</ctx>
+									</ctx>
+								</ctx>
+							</ctx>
+							<ctx :if="$page.hasNext().not()">
+								<ctx parent="$page.parentSection()">
+									<ctx :if="$ctx.parent.nextPage?()">
+										<ctx next="$if">
+											<ctx :if="$ctx.next.custom.get?('section')">
+												<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
+											</ctx>
+										</ctx>
+									</ctx>
+								</ctx>
+							</ctx>
+						</nav>
+					</ctx>
 				</main>
 				<ctx :if="$page.footnotes?()">
 					<section id="footnotes">
@@ -149,7 +193,7 @@
 						</ol>
 					</section>
 				</ctx>
-				<footer class="site-footer"><p>Conținut educațional CEXIA</p><a href="$site.index().link()">Înapoi la lecții</a></footer>
+				<footer class="site-footer"><p>Cu excepția altor specificări, conținutul site-ului este publicat<br>sub licența <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>.</p><a href="$site.index().link()">Înapoi la lecții</a></footer>
 			</div>
 		</div>
 		<div class="nav-scrim" hidden></div>

@@ -1,8 +1,23 @@
 code.zig,
 code.ziggy,
 code.python,
-code.py {
+code.py,
+code.bash {
   color: var(--ink);
+}
+
+code.bash .constant {
+  color: var(--syntax-string);
+}
+
+code.bash .constant.function,
+code.bash .function {
+  color: var(--syntax-call);
+}
+
+code.bash .variable,
+code.bash .variable.parameter {
+  color: var(--syntax-keyword);
 }
 
 code .comment,
