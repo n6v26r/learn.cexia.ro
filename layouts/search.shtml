@@ -12,7 +12,7 @@
 	<ul class="search-results search-page-results"></ul>
 	<div class="search-corpus" hidden>
 		<ctx :loop="$site.pages()">
-			<ctx :if="$loop.it.link().eql('/404/').not().and($loop.it.link().eql('/tags/').not()).and($loop.it.link().eql('/search/').not()).and($loop.it.custom.has('section').not())">
+			<ctx :if="$loop.it.link().eql('/404/').not().and($loop.it.link().eql('/tags/').not()).and($loop.it.link().eql('/search/').not()).and($loop.it.isSection().not())">
 				<article class="search-document">
 					<a class="search-document-link" href="$loop.it.link()" :text="$loop.it.title"></a>
 					<template class="search-document-content" :html="$loop.it.content()"></template>

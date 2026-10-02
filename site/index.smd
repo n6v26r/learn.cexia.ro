@@ -1,19 +1,32 @@
 ---
 .title = "Învață inteligență artificială, pas cu pas",
-.description = "Lecții practice CEXIA pentru elevi: de la primele instrucțiuni Python la modele de machine learning.",
+.description = "Lecții practice de IA: de la primele instrucțiuni Python la modele de machine learning.",
 ---
 
 []($section.id('intro'))
 
-Acesta este spațiul de studiu CEXIA. Fiecare lecție combină explicații scurte, exemple care pot fi rulate și exerciții. Poți citi materialele direct în browser sau poți descărca notebook-ul pentru a lucra în Jupyter ori Google Colab.
+Salut! Aici găsești arhiva de lecții CEXIA și materiale educaționale pentru a învăța inteligență artificială.
+Fiecare lecție combină explicații, exemple executabile și exerciții. Poți citi materialele direct în browser sau poți descărca notebook-urile pentru a lucra în Jupyter ori Google Colab.
 
 > []($block.attrs('info'))
 > **Cum înveți eficient?** Rulează fiecare celulă, schimbă valorile din exemple și încearcă exercițiile înainte să citești soluția. Codul se învață scriind cod.
 
-## Un traseu construit pentru practică
+# [Motivație]($section.id("motivatie"))
 
-Începe cu seria **Python**, chiar dacă ai mai programat. Noțiunile de acolo — colecții, funcții și gândire algoritmică — reapar în toate lecțiile de inteligență artificială. Continuă apoi cu **Machine Learning**, unde vei învăța să transformi datele în predicții verificabile.
+Inteligența artificială este un domeniu relativ nou, cu atât mai mult în învățământul preuniversitar, ce evoluează foarte rapid.
+Prima olimpiadă internațională de inteligență artificială s-a desfășurat în 2024, iar în prezent (septembrie 2026) domeniul este deja prezent în programa școlară pentru liceu.
 
-[]($section.id('ftree'))
+Pentru un domeniu al informaticii cu o dezvoltare atât de rapidă, există surprinzător de puține resurse de calitate, adaptate nivelului de liceu, mai ales pentru concursuri și în limba română.
 
-## Explorează modulele
+Scopul nostru, așadar, este să oferim într-un mod centralizat resurse, la nivelul altor materiale de top făcute de pasionați din alte țări, ajutând astfel elevii și profesorii.
+
+Acest proiect este unul care va fi mereu în curs de îmbunătățire, pe măsură ce ajungem să avem tot mai multe articole mai detaliate pentru o audiență tot mai mare. Lecțiile sunt concepute pentru a fi folosite în cadrul cursurilor organizate de [CEXIA](https://cexia.ro), dar ne dorim să ajungă la cât mai mulți oameni.
+
+Pe viitor, poate și cu ajutorul tău, vrem să avem îndeajuns de multe materiale care să ajute orice persoană interesată, astfel încât aceasta să poată folosi cunoștințele de aici pentru a-și îmbunătăți abilitățile de rezolvare a problemelor (nu doar a celor de concurs :)).
+
+# [Ce găsești aici?]($section.id("ce-gasesti-aici"))
+
+Acest proiect este, momentan, foarte early work in progress. Dorim, în fază inițială, să acoperim integral programele pentru olimpiada națională ([ONIA](https://olimpiada-ai.ro)) și concursul [ROAI](https://olimpiada.nitro-ai.org).
+
+
+# [Explorează modulele]($section.id('ftree'))

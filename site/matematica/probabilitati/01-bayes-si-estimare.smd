@@ -1,6 +1,0 @@
----
-.title = "01 · Bayes, verosimilitate și estimare",
-.description = "Construiește un model probabilistic, actualizează credințe și compară estimarea MLE cu MAP.",
-.tags = ["probabilitati", "bayes", "statistica"],
-.custom = .{ .level = "Avansat", .duration = "130 min" },
----

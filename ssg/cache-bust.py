@@ -8,6 +8,7 @@ import shutil
 from pathlib import Path
 
 RAW = Path("zig-out/.zine-release-raw")
+PASS_ONE = Path("zig-out/.cache-bust-pass")
 OUT = Path("zig-out/release")
 
 ASSET_EXTS = {
@@ -37,7 +38,7 @@ CODE_RE = re.compile(r"(<code\b[\s\S]*?</code>)", re.IGNORECASE)
 def is_asset(rel: str) -> bool:
     if rel == "vercel.json":
         return False
-    if rel == "robots.txt" or rel == "sitemap.xml" or rel == "favicon.ico":
+    if rel == "robots.txt" or rel == "favicon.ico":
         return False
     if rel == ".well-known" or rel.startswith(".well-known/"):
         return False
@@ -45,11 +46,12 @@ def is_asset(rel: str) -> bool:
     return suffix in ASSET_EXTS and suffix not in {".html", ".xml"}
 
 
-def hashed_name(rel: str) -> str:
-    file = RAW / rel
+def hashed_name(root: Path, rel: str) -> str:
+    file = root / rel
     digest = hashlib.md5(file.read_bytes()).hexdigest()
     base = posixpath.basename(rel)
     stem, ext = posixpath.splitext(base)
+    stem = re.sub(r"_[0-9a-f]{32}$", "", stem)
     name = f"{stem}_{digest}{ext}"
     parent = posixpath.dirname(rel)
     return f"{parent}/{name}" if parent else name
@@ -73,14 +75,7 @@ def is_root_edge(text: str, start: int, length: int) -> bool:
     end = start + length
     if end < len(text) and text[end] in PATH_CHARS:
         return False
-    if start == 0 or text[start - 1] not in PATH_CHARS:
-        return True
-
-    scheme = text.rfind("://", 0, start)
-    if scheme < 0:
-        return False
-    host_start = scheme + len("://")
-    return "/" not in text[host_start:start]
+    return start == 0 or text[start - 1] not in PATH_CHARS
 
 
 def replace_token(text: str, needle: str, repl: str, root: bool = False) -> str:
@@ -123,17 +118,21 @@ def rewrite_text(text: str, current: str, assets: dict[str, str]) -> str:
     return "".join(parts)
 
 
-def main() -> int:
-    shutil.rmtree(OUT, ignore_errors=True)
-    OUT.mkdir(parents=True)
+def cache_bust(source: Path, output: Path, text_only: bool = False) -> None:
+    shutil.rmtree(output, ignore_errors=True)
+    output.mkdir(parents=True)
 
-    files = sorted(file.relative_to(RAW).as_posix() for file in RAW.rglob("*") if file.is_file())
-    assets = {rel: hashed_name(rel) for rel in files if is_asset(rel)}
+    files = sorted(file.relative_to(source).as_posix() for file in source.rglob("*") if file.is_file())
+    assets = {
+        rel: hashed_name(source, rel)
+        for rel in files
+        if is_asset(rel) and (not text_only or Path(rel).suffix.lower() in TEXT_EXTS)
+    }
 
     for rel in files:
         dst_rel = assets.get(rel, rel)
-        src = RAW / rel
-        dst = OUT / dst_rel
+        src = source / rel
+        dst = output / dst_rel
         dst.parent.mkdir(parents=True, exist_ok=True)
 
         if src.suffix.lower() in TEXT_EXTS:
@@ -142,6 +141,14 @@ def main() -> int:
         else:
             shutil.copy2(src, dst)
 
+
+def main() -> int:
+    try:
+        # Re-hash text assets once after their font and image URLs are rewritten.
+        cache_bust(RAW, PASS_ONE)
+        cache_bust(PASS_ONE, OUT, text_only=True)
+    finally:
+        shutil.rmtree(PASS_ONE, ignore_errors=True)
     return 0
 
 

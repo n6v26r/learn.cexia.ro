@@ -9,6 +9,8 @@
   const pageStatus = document.querySelector(".search-page-status");
   const pageResults = document.querySelector(".search-page-results");
   let corpusPromise;
+  let quickRequest = 0;
+  let pageRequest = 0;
 
   const normalize = (value) => value
     .normalize("NFD")
@@ -266,6 +268,7 @@
   };
 
   const showQuickResults = async () => {
+    const request = ++quickRequest;
     const query = sidebarInput.value.trim();
     if (query.length < 2) {
       quickSearch.hidden = true;
@@ -276,9 +279,10 @@
     quickSearch.hidden = false;
     sidebarInput.setAttribute("aria-expanded", "true");
     quickStatus.textContent = "Se caută…";
-    quickResults.replaceChildren();
     try {
       const results = search(await loadCorpus(), query);
+      if (request !== quickRequest || sidebarInput.value.trim() !== query) return;
+      quickResults.replaceChildren();
       quickStatus.textContent = results.length
         ? `${results.length} ${results.length === 1 ? "rezultat" : "rezultate"}`
         : "Niciun rezultat";
@@ -293,16 +297,18 @@
         quickResults.append(more);
       }
     } catch {
+      if (request !== quickRequest || sidebarInput.value.trim() !== query) return;
       quickStatus.textContent = "Căutarea nu a putut fi încărcată.";
     }
   };
 
   const showPageResults = async () => {
     if (!pageInput) return;
+    const request = ++pageRequest;
     const query = pageInput.value.trim();
     sidebarInput.value = query;
-    pageResults.replaceChildren();
     if (query.length < 2) {
+      pageResults.replaceChildren();
       pageStatus.textContent = "Introdu cel puțin două caractere.";
       return;
     }
@@ -310,11 +316,14 @@
     pageStatus.textContent = "Se caută…";
     try {
       const results = search(await loadCorpus(), query);
+      if (request !== pageRequest || pageInput.value.trim() !== query) return;
+      pageResults.replaceChildren();
       pageStatus.textContent = results.length
         ? `${results.length} ${results.length === 1 ? "rezultat" : "rezultate"}`
         : "Niciun rezultat";
       pageResults.append(...results.map((result) => resultItem(result, query, true)));
     } catch {
+      if (request !== pageRequest || pageInput.value.trim() !== query) return;
       pageStatus.textContent = "Căutarea nu a putut fi încărcată.";
     }
   };

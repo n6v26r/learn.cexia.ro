@@ -1,8 +1,0 @@
----
-.title = "Machine Learning",
-.description = "Modele care învață din date: intuiție, implementare și evaluare riguroasă.",
----
-
-În machine learning nu scriem direct toate regulile. Oferim unui algoritm exemple, alegem o măsură a erorii și îl lăsăm să găsească parametrii care explică datele.
-
-Pentru acest modul sunt recomandate primele două lecții din seria Python.

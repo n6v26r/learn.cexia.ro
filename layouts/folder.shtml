@@ -2,59 +2,29 @@
 <head id="head"></head>
 <main id="main" class="folder-page">
 	<ctx tag_names="$site.asset('tags.json').ziggy()">
-	<ctx :if="$page.hasContentSection('ftree')">
 		<article>
 			<ctx :loop="$page.contentSections()">
 				<ctx :html="$loop.it.html()"></ctx>
-			<ctx :if="$loop.it.id.eql('ftree')">
-				<ul class="lesson-grid">
-							<ctx :loop="$page.subpages()">
-								<ctx child="$page.subpages().at($loop.len.minus($loop.idx))">
-				<ctx :if="$ctx.child.link().eql('/404/').not().and($ctx.child.link().eql('/tags/').not()).and($ctx.child.link().eql('/search/').not())">
+				<ctx :if="$loop.it.id.eql('ftree')">
+					<ul class="lesson-grid">
+						<ctx :loop="$page.subpages()">
+							<ctx child="$page.subpages().at($loop.len.minus($loop.idx))">
+								<ctx :if="$ctx.child.link().eql('/404/').not().and($ctx.child.link().eql('/tags/').not()).and($ctx.child.link().eql('/search/').not())">
 									<li>
-									<a href="$ctx.child.link()" :text="$ctx.child.title"></a>
-									<ctx :if="$ctx.child.tags.empty.not()">
-									<div class="card-tags">
-										<ctx :loop="$ctx.child.tags">
-											<a class="tag" href="$site.page('tags').link().suffix('#', $loop.it)" :text="$ctx.tag_names.get($loop.it)"></a>
-											</ctx>
-										</div>
-									</ctx>
-									<ctx :if="$ctx.child.description.eql('').not()">
-										<p :text="$ctx.child.description"></p>
-									</ctx>
+										<a href="$ctx.child.link()" :text="$ctx.child.title"></a>
+										<ctx :if="$ctx.child.tags.empty.not()">
+											<div class="card-tags">
+												<a class="tag" :loop="$ctx.child.tags" href="$site.page('tags').link().suffix('#', $loop.it)" :text="$ctx.tag_names.get($loop.it)"></a>
+											</div>
+										</ctx>
+										<ctx :if="$ctx.child.description.eql('').not()"><p :text="$ctx.child.description"></p></ctx>
 									</li>
 								</ctx>
-								</ctx>
-					</ctx>
-				</ul>
-			</ctx>
-		</ctx>
-	</article>
-	</ctx>
-	<ctx :if="$page.hasContentSection('ftree').not()">
-		<article :html="$page.content()"></article>
-		<ul class="lesson-grid">
-				<ctx :loop="$page.subpages()">
-					<ctx child="$page.subpages().at($loop.len.minus($loop.idx))">
-					<ctx :if="$ctx.child.link().eql('/404/').not().and($ctx.child.link().eql('/tags/').not()).and($ctx.child.link().eql('/search/').not())">
-						<li>
-						<a href="$ctx.child.link()" :text="$ctx.child.title"></a>
-						<ctx :if="$ctx.child.tags.empty.not()">
-							<div class="card-tags">
-								<ctx :loop="$ctx.child.tags">
-									<a class="tag" href="$site.page('tags').link().suffix('#', $loop.it)" :text="$ctx.tag_names.get($loop.it)"></a>
-								</ctx>
-							</div>
+							</ctx>
 						</ctx>
-						<ctx :if="$ctx.child.description.eql('').not()">
-							<p :text="$ctx.child.description"></p>
-						</ctx>
-						</li>
-					</ctx>
-					</ctx>
+					</ul>
+				</ctx>
 			</ctx>
-		</ul>
-	</ctx>
+		</article>
 	</ctx>
 </main>

@@ -1,5 +1,5 @@
 <extend template="base.shtml">
-<head id="head"></head>
+<head id="head"><script defer src="$site.asset('filters.js').link()"></script></head>
 <main id="main" class="folder-page">
 	<ctx tag_names="$site.asset('tags.json').ziggy()" author_names="$site.asset('authors.json').ziggy()">
 		<section class="tag-browser" aria-label="Filtrare lecții">

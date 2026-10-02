@@ -31,12 +31,19 @@ environment.
 
 ## Development
 
-Build the development site and run its tests:
+Clone the repository, then build the development site and run its tests:
 
 ```sh
+git clone https://github.com/n6v26r/learn.cexia.ro.git
+cd learn.cexia.ro
 zig build
 zig build test
 ```
+
+> [!NOTE]
+> The first build can take a while because Zig must download the pinned
+> dependencies and compile the site toolchain. Later builds reuse the local
+> caches and are substantially faster.
 
 Start the development server at <http://localhost:1991>:
 
@@ -75,7 +82,7 @@ All source content lives in `site/`. A lesson can be either:
 becomes both the URL hierarchy and the navigation tree; pages in each directory
 are listed by ascending frontmatter `date` rank.
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the content formats, metadata fields,
-and validation workflow.
+and authoring conventions.
 
 ## Project structure
 

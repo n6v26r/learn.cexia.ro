@@ -57,30 +57,17 @@ pub fn materializeAssets(b: *std.Build) *std.Build.Step {
     }
     assets.addBytesToSource(render_katex_script, "assets/render-katex.js");
 
-    const bebas_neue = b.dependency("font_bebas_neue", .{});
     const lexend = b.dependency("font_lexend", .{});
     const maple = b.dependency("font_maple_mono", .{});
     const merriweather = b.dependency("font_merriweather", .{});
-    const unbounded = b.dependency("font_unbounded", .{});
-    const protest = b.dependency("font_protest_strike", .{});
-    const getai = b.dependency("font_getai", .{});
-    const selera = b.dependency("font_selera", .{});
 
-    assets.addCopyFileToSource(bebas_neue.path("files/bebas-neue-latin-400-normal.woff2"), "assets/fonts/BebasNeue-Regular.woff2");
-    assets.addCopyFileToSource(bebas_neue.path("files/bebas-neue-latin-ext-400-normal.woff2"), "assets/fonts/BebasNeue-Regular-LatinExt.woff2");
     assets.addCopyFileToSource(lexend.path("files/lexend-latin-400-normal.woff2"), "assets/fonts/Lexend-Regular.woff2");
     assets.addCopyFileToSource(lexend.path("files/lexend-latin-700-normal.woff2"), "assets/fonts/Lexend-Bold.woff2");
     assets.addCopyFileToSource(lexend.path("files/lexend-latin-ext-400-normal.woff2"), "assets/fonts/Lexend-Regular-LatinExt.woff2");
     assets.addCopyFileToSource(lexend.path("files/lexend-latin-ext-700-normal.woff2"), "assets/fonts/Lexend-Bold-LatinExt.woff2");
     assets.addCopyFileToSource(maple.path("MapleMono-NF-Regular.woff2"), "assets/fonts/MapleMono-NF-Regular.woff2");
-    assets.addCopyFileToSource(maple.path("MapleMono-NF-Bold.woff2"), "assets/fonts/MapleMono-NF-Bold.woff2");
-    assets.addCopyFileToSource(maple.path("MapleMono-NF-Italic.woff2"), "assets/fonts/MapleMono-NF-Italic.woff2");
     assets.addCopyFileToSource(merriweather.path("files/merriweather-latin-400-normal.woff2"), "assets/fonts/Merriweather-Regular.woff2");
     assets.addCopyFileToSource(merriweather.path("files/merriweather-latin-ext-400-normal.woff2"), "assets/fonts/Merriweather-Regular-LatinExt.woff2");
-    assets.addCopyFileToSource(unbounded.path("files/unbounded-latin-400-normal.woff2"), "assets/fonts/Unbounded-Regular.woff2");
-    assets.addCopyFileToSource(protest.path("files/protest-strike-latin-400-normal.woff2"), "assets/fonts/ProtestStrike-Regular.woff2");
-    assets.addCopyFileToSource(getai.path("fonts/GetaiGroteskDisplay-Black.woff2"), "assets/fonts/GetaiGroteskDisplay-Black.woff2");
-    assets.addCopyFileToSource(selera.path("SeleraRegular-AR2Vm.woff2"), "assets/fonts/Selera-Regular.woff2");
 
     return &assets.step;
 }

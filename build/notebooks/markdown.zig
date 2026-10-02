@@ -14,6 +14,7 @@ pub fn firstLineTitle(alloc: Allocator, text: []const u8) ![]const u8 {
     const line_end = std.mem.indexOfScalar(u8, text, '\n') orelse text.len;
 
     var title = std.mem.trim(u8, text[0..line_end], " \t\r");
+    if (!std.mem.startsWith(u8, title, "#")) return try alloc.dupe(u8, "");
     while (title.len > 0 and title[0] == '#') title = title[1..];
     title = std.mem.trim(u8, title, " \t\r");
 
@@ -26,6 +27,16 @@ pub fn firstLineTitle(alloc: Allocator, text: []const u8) ![]const u8 {
         if (char == '>') in_tag = false;
     }
     return try alloc.dupe(u8, std.mem.trim(u8, out.written(), " \t\r"));
+}
+
+test "title inference requires a Markdown heading" {
+    const heading = try firstLineTitle(std.testing.allocator, "# Titlu cu <span>HTML</span>\n\nConținut");
+    defer std.testing.allocator.free(heading);
+    try std.testing.expectEqualStrings("Titlu cu HTML", heading);
+
+    const prose = try firstLineTitle(std.testing.allocator, "Introducere fără titlu\n\nConținut");
+    defer std.testing.allocator.free(prose);
+    try std.testing.expectEqualStrings("", prose);
 }
 
 pub fn dropFirstLine(text: []const u8) []const u8 {
@@ -144,10 +155,59 @@ pub fn math(alloc: Allocator, text: []const u8) ![]const u8 {
     var out = Writer.Allocating.init(alloc);
     defer out.deinit();
     var i: usize = 0;
+    var fence_char: u8 = 0;
+    var fence_len: usize = 0;
     while (i < text.len) {
+        if (i == 0 or text[i - 1] == '\n') {
+            const line_end = std.mem.indexOfScalarPos(u8, text, i, '\n') orelse text.len;
+            const line = text[i..line_end];
+            const trimmed = std.mem.trimStart(u8, line, " ");
+            const indent = line.len - trimmed.len;
+            if (indent <= 3 and trimmed.len > 0 and (trimmed[0] == '`' or trimmed[0] == '~')) {
+                const run = std.mem.indexOfNone(u8, trimmed, trimmed[0..1]) orelse trimmed.len;
+                if (run >= 3 and (fence_len == 0 or (trimmed[0] == fence_char and run >= fence_len))) {
+                    if (fence_len == 0) {
+                        fence_char = trimmed[0];
+                        fence_len = run;
+                    } else {
+                        fence_len = 0;
+                    }
+                    try out.writer.writeAll(text[i..line_end]);
+                    if (line_end < text.len) try out.writer.writeByte('\n');
+                    i = @min(line_end + 1, text.len);
+                    continue;
+                }
+            }
+            if (fence_len > 0) {
+                try out.writer.writeAll(text[i..line_end]);
+                if (line_end < text.len) try out.writer.writeByte('\n');
+                i = @min(line_end + 1, text.len);
+                continue;
+            }
+        }
+        if (text[i] == '`') {
+            const run = std.mem.indexOfNone(u8, text[i..], "`") orelse text.len - i;
+            var end = i + run;
+            while (end < text.len) : (end += 1) {
+                if (text[end] != '`') continue;
+                const close_run = std.mem.indexOfNone(u8, text[end..], "`") orelse text.len - end;
+                if (close_run >= run) {
+                    end += run;
+                    break;
+                }
+            }
+            try out.writer.writeAll(text[i..end]);
+            i = end;
+            continue;
+        }
         if (text[i] == '\\' and i + 1 < text.len and text[i + 1] == '$') {
             try out.writer.writeAll(text[i .. i + 2]);
             i += 2;
+            continue;
+        }
+        if (isScripty(text, i)) {
+            try out.writer.writeByte('$');
+            i += 1;
             continue;
         }
         if (i + 1 < text.len and text[i] == '$' and text[i + 1] == '$') {
@@ -176,6 +236,31 @@ pub fn math(alloc: Allocator, text: []const u8) ![]const u8 {
         i += 1;
     }
     return try alloc.dupe(u8, out.written());
+}
+
+fn isScripty(text: []const u8, dollar: usize) bool {
+    if (dollar == 0 or text[dollar] != '$' or text[dollar - 1] != '(') return false;
+    inline for (.{ "$block", "$image", "$mathtex", "$section" }) |name| {
+        if (std.mem.startsWith(u8, text[dollar..], name)) {
+            const end = dollar + name.len;
+            if (end == text.len or text[end] == '.' or text[end] == ')') return true;
+        }
+    }
+    return false;
+}
+
+test "math conversion skips code and Scripty" {
+    const source =
+        "Inline `$HOME` and $x + 1$.\n\n" ++
+        "```bash\necho \"$HOME $PATH\"\n```\n\n" ++
+        "[]($section.id('example'))\n[]($block.attrs('info'))";
+    const expected =
+        "Inline `$HOME` and [`x + 1`]($mathtex).\n\n" ++
+        "```bash\necho \"$HOME $PATH\"\n```\n\n" ++
+        "[]($section.id('example'))\n[]($block.attrs('info'))";
+    const actual = try math(std.testing.allocator, source);
+    defer std.testing.allocator.free(actual);
+    try std.testing.expectEqualStrings(expected, actual);
 }
 
 fn attachmentImages(alloc: Allocator, text: []const u8, attachment: []const u8, filename: []const u8) ![]const u8 {

@@ -9,7 +9,6 @@ const Writer = Io.Writer;
 const markdown_mod = @import("markdown.zig");
 const meta_mod = @import("meta.zig");
 const output = @import("output.zig");
-const result_mod = @import("result.zig");
 const types = @import("types.zig");
 const util = @import("util.zig");
 
@@ -40,17 +39,18 @@ pub fn notebook(alloc: Allocator, io: Io, root: Dir, out_dir: []const u8, rel: [
     }
     if (title.len == 0) title = try util.titleFromSlug(alloc, stem);
 
-    const language_info = parsed.value.object.get("metadata").?.object.get("language_info").?;
-    const language = language_info.object.get("name").?.string;
-    const version = if (language_info.object.getPtr("version")) |v| v.string else null;
+    var language: []const u8 = "python";
+    var version: ?[]const u8 = null;
+    if (parsed.value.object.get("metadata")) |metadata| {
+        if (metadata.object.get("language_info")) |language_info| {
+            if (language_info.object.get("name")) |value| language = value.string;
+            if (language_info.object.get("version")) |value| version = value.string;
+        }
+    }
     try meta_mod.inferRuntime(alloc, &parsed.value, &meta.custom);
 
     var smd = Writer.Allocating.init(alloc);
     defer smd.deinit();
-    if (meta.custom.result) |v| {
-        const with_total = try result_mod.addTotal(alloc, v);
-        meta.custom.result = try result_mod.addText(alloc, with_total, &meta.custom);
-    }
     meta.custom.crumbs = try util.breadcrumbHtml(alloc, page_path);
     meta.custom.python = version;
     if (meta.custom.gpu) |v| {

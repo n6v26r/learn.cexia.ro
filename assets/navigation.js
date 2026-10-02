@@ -1,6 +1,6 @@
 (() => {
   const sections = [...document.querySelectorAll('details[name="lesson-sections"]')];
-  const current = document.querySelector(".lesson-tree a.is-current")?.closest("details");
+  const current = document.querySelector(".lesson-tree a.is-current")?.closest("details") ?? sections[0];
   sections.forEach((section) => {
     section.open = section === current;
   });

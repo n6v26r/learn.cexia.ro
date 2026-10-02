@@ -1,0 +1,36 @@
+---
+.title = "Prefață",
+.description = "Conceptele introductive necesare înainte de primele lecții de Python și inteligență artificială.",
+.date = .unix(0)
+---
+
+
+# [Despre acest capitol]($section.id("despre"))
+
+Înainte să începi să înveți orice, este util să înțelegi câteva concepte de bază. În acest capitol vei afla cum funcționează notebook-urile, ce este Jupyter și Google Colab, ce înseamnă inteligența artificială, etc.
+
+Nu ai nevoie de experiență anterioară. Scopul este să te familiarizezi cu instrumentele și cu modul de lucru pe care îl vei folosi în lecțiile următoare. 
+
+# [Workflow]($section.id("workflow"))
+
+În multe probleme de machine learning, programul urmează un flux de lucru asemănător:
+
+1. încărcăm datele;
+2. le curățăm și le pregătim;
+3. împărțim datele pentru antrenare și verificare;
+4. antrenăm un model;
+5. evaluăm cât de bine funcționează;
+6. folosim modelul pentru a face predicții noi.
+
+# [Cum să folosești lecțiile]($section.id("how-to-use"))
+
+Pentru fiecare lecție:
+
+1. rulează celulele în ordinea prezentată;
+2. verifică rezultatele și mesajele de eroare;
+3. schimbă valorile din exemple;
+4. încearcă să prezici rezultatul înainte să rulezi codul;
+5. rezolvă exercițiile fără să copiezi imediat soluția;
+6. modifică exemplul pentru a rezolva o problemă asemănătoare.
+
+[]($section.id('ftree'))

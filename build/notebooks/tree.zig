@@ -10,10 +10,6 @@ const render = @import("render.zig");
 const types = @import("types.zig");
 const util = @import("util.zig");
 
-pub fn generate(b: *std.Build) !void {
-    try generateAt(b.allocator, b.graph.io, b.root.root_dir.handle, types.out_dir);
-}
-
 pub fn generateAt(alloc: Allocator, io: Io, root: Dir, out_dir: []const u8) !void {
     try root.createDirPath(io, out_dir);
 
@@ -49,7 +45,6 @@ fn writeFolderPage(alloc: Allocator, io: Io, root: Dir, out_dir: []const u8, pag
     meta.title = title;
     if (meta.layout == null) meta.layout = "folder.shtml";
     meta.custom.crumbs = try util.breadcrumbHtml(alloc, page);
-    meta.custom.section = true;
     try meta_mod.writeFrontmatter(&out.writer, meta);
 
     try out.writer.writeAll(smd.body);

@@ -542,7 +542,7 @@ h1.title {
 }
 .tag-filter + .tag { cursor: pointer; }
 .tag-filter:focus-visible + .tag { outline: 2px solid var(--gold); outline-offset: 2px; }
-.tag-filter:is(:checked, :target) + .tag {
+.tag-filter:checked + .tag {
   background: var(--gold-soft);
   border-color: var(--gold);
   color: var(--heading);
@@ -558,38 +558,6 @@ h1.title {
   text-transform: uppercase;
 }
 .tag-results { margin-top: 0; }
-
-.tag-browser:has(#algebra-liniara:is(:checked, :target)) .tag-result:not(:has([data-tag="algebra-liniara"])),
-.tag-browser:has(#algoritmica:is(:checked, :target)) .tag-result:not(:has([data-tag="algoritmica"])),
-.tag-browser:has(#autograd:is(:checked, :target)) .tag-result:not(:has([data-tag="autograd"])),
-.tag-browser:has(#backpropagation:is(:checked, :target)) .tag-result:not(:has([data-tag="backpropagation"])),
-.tag-browser:has(#bayes:is(:checked, :target)) .tag-result:not(:has([data-tag="bayes"])),
-.tag-browser:has(#calcul:is(:checked, :target)) .tag-result:not(:has([data-tag="calcul"])),
-.tag-browser:has(#clasificare:is(:checked, :target)) .tag-result:not(:has([data-tag="clasificare"])),
-.tag-browser:has(#complexitate:is(:checked, :target)) .tag-result:not(:has([data-tag="complexitate"])),
-.tag-browser:has(#date:is(:checked, :target)) .tag-result:not(:has([data-tag="date"])),
-.tag-browser:has(#deep-learning:is(:checked, :target)) .tag-result:not(:has([data-tag="deep-learning"])),
-.tag-browser:has(#evaluare:is(:checked, :target)) .tag-result:not(:has([data-tag="evaluare"])),
-.tag-browser:has(#fisiere:is(:checked, :target)) .tag-result:not(:has([data-tag="fisiere"])),
-.tag-browser:has(#fundamente:is(:checked, :target)) .tag-result:not(:has([data-tag="fundamente"])),
-.tag-browser:has(#gradient-descent:is(:checked, :target)) .tag-result:not(:has([data-tag="gradient-descent"])),
-.tag-browser:has(#incepatori:is(:checked, :target)) .tag-result:not(:has([data-tag="incepatori"])),
-.tag-browser:has(#machine-learning:is(:checked, :target)) .tag-result:not(:has([data-tag="machine-learning"])),
-.tag-browser:has(#matematica:is(:checked, :target)) .tag-result:not(:has([data-tag="matematica"])),
-.tag-browser:has(#numpy:is(:checked, :target)) .tag-result:not(:has([data-tag="numpy"])),
-.tag-browser:has(#optimizare:is(:checked, :target)) .tag-result:not(:has([data-tag="optimizare"])),
-.tag-browser:has(#probabilitati:is(:checked, :target)) .tag-result:not(:has([data-tag="probabilitati"])),
-.tag-browser:has(#python:is(:checked, :target)) .tag-result:not(:has([data-tag="python"])),
-.tag-browser:has(#pytorch:is(:checked, :target)) .tag-result:not(:has([data-tag="pytorch"])),
-.tag-browser:has(#retele-neuronale:is(:checked, :target)) .tag-result:not(:has([data-tag="retele-neuronale"])),
-.tag-browser:has(#statistica:is(:checked, :target)) .tag-result:not(:has([data-tag="statistica"])),
-.tag-browser:has(#tensori:is(:checked, :target)) .tag-result:not(:has([data-tag="tensori"])) {
-  display: none;
-}
-.tag-browser:has(#author-cexia-learn:is(:checked, :target)) .tag-result:not(:has([data-author="cexia-learn"])),
-.tag-browser:has(#author-echipa-de-matematica:is(:checked, :target)) .tag-result:not(:has([data-author="echipa-de-matematica"])) {
-  display: none;
-}
 
 .search-page-form { max-width: 48rem; }
 .search-page-form > label {
@@ -681,6 +649,11 @@ h1.title {
 
 article { max-width: 48rem; }
 article h2 { margin: 3.6rem 0 1rem; font-size: 1.7rem; letter-spacing: -0.025em; }
+article h2 > a[href^="#"],
+article h2 > a[href^="#"]:hover {
+  color: inherit;
+  text-decoration: none;
+}
 article h3 { margin: 2.4rem 0 0.8rem; font-size: 1rem; letter-spacing: -0.01em; }
 article p, article ul, article ol { margin: 1rem 0; }
 article li { margin: 0.35rem 0; }
@@ -891,6 +864,7 @@ pre code { color: inherit; }
 
 @media (max-width: 900px) {
 	.sidebar-toggle { display: none; }
+  article [id] { scroll-margin-top: 5rem; }
   .mobile-header {
     position: sticky;
     top: 0;

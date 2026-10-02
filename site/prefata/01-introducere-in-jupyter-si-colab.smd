@@ -1,0 +1,124 @@
+---
+.title = "01 · Notebooks",
+.description = "Învață să folosești notebook-urile Jupyter și Google Colab pentru a rula exemplele din lecții.",
+.date = .unix(0),
+.tags = ["jupyter", "colab", "notebooks", "incepatori"],
+---
+
+# Ce este un notebook?
+
+Un notebook (cu extensia `.ipynb`) este un format care combină text explicativ, cod executabil și rezultatele obținute prin rularea codului. Poți citi materialul în browser, poți modifica exemplele și poți rezolva exercițiile, scriind cod într-un mod iterativ. Modificările nu necesită reexecutarea de la cap la coadă a unui program.
+
+## Cum este organizat un notebook?
+
+Un notebook conține celule. Tipurile de celule principale sunt:
+
+- celulele de cod, în care scrii și rulezi instrucțiuni Python;
+- celulele Markdown, în care scrii explicații, observații și formule.
+
+# JupyterLab
+
+JupyterLab este o interfață web pentru lucrul interactiv cu notebook-uri și alte fișiere. Față de interfața clasică Jupyter Notebook, JupyterLab îți permite să lucrezi în mai multe file și panouri și include un browser de fișiere, un editor de text și un terminal.
+
+JupyterLab rulează pe calculatorul tău, dar interfața este deschisă în browser. Recomandăm instalarea într-un mediu virtual Python, pentru ca bibliotecile unui proiect să nu interfereze cu cele ale altor proiecte.
+
+## Instalare în funcție de sistemul de operare
+
+Înainte de instalare, ai nevoie de Python. Folosește o versiune recentă de Python 3 și verifică în terminal dacă este disponibil:
+
+```
+python --version
+```
+
+Pe macOS și pe unele distribuții Linux, comanda poate fi `python3 --version`.
+
+<details>
+<summary>Windows</summary>
+
+Deschide **PowerShell** și execută comenzile următoare:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install jupyterlab
+```
+
+Dacă folosești Command Prompt în loc de PowerShell, activează mediul cu:
+
+```
+.venv\Scripts\activate.bat
+```
+
+</details>
+
+<details>
+<summary>macOS</summary>
+
+Deschide aplicația **Terminal** și execută:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install jupyterlab
+```
+
+</details>
+
+<details>
+<summary>Linux</summary>
+
+Deschide un terminal și execută:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install jupyterlab
+```
+
+Pe unele distribuții Linux poate fi necesar să instalezi mai întâi pachetul pentru medii virtuale, de exemplu `python3-venv`.
+
+</details>
+
+După instalare, pornește JupyterLab din același terminal și din folderul în care vrei să lucrezi:
+
+```bash
+jupyter lab
+```
+
+Se va deschide o pagină în browser în care poți crea și deschide notebook-uri. Pentru a opri JupyterLab, revino în terminal și apasă `Ctrl + C`.
+
+
+# Google Colab
+
+[Google Colab](https://colab.research.google.com) este un mediu de programare Python care rulează în browser. El se bazează pe formatul Jupyter și permite executarea codului pe serverele Google.
+
+Pentru început, Colab este util deoarece:
+
+- nu trebuie să instalezi Python sau bibliotecile folosite în lecții;
+- poți rula codul pas cu pas și poți vedea imediat rezultatele;
+- notebook-urile pot fi salvate în Google Drive;
+- poți lucra împreună cu alte persoane pe același document;
+- pentru anumite calcule, poți folosi resurse hardware în cloud, precum GPU-uri sau TPU-uri.
+
+Pentru a începe, deschide [colab.research.google.com](https://colab.research.google.com), autentifică-te cu un cont Google și creează un notebook nou sau deschide unul existent.
+
+Poți executa o celulă apăsând butonul de rulare din stânga ei sau folosind combinația `Shift + Enter`. Această combinație execută celula și selectează celula următoare. Cu `Ctrl + Enter`, execuți celula fără să treci la următoarea.
+
+## Fișiere și sesiuni
+
+Panoul **Files** din partea stângă a interfeței îți arată fișierele disponibile în sesiunea curentă. Fișierele încărcate manual sunt, de regulă, temporare și pot dispărea atunci când sesiunea se închide sau este resetată.
+
+Pentru fișiere pe care vrei să le păstrezi, folosește Google Drive:
+
+```python
+from google.colab import drive
+
+drive.mount('/content/drive')
+```
+
+După conectare, fișierele tale pot fi accesate prin calea `/content/drive/MyDrive/`.
+
+Este important să reții că o sesiune Colab nu este un calculator personal pornit permanent. Resursele pot fi eliberate după o perioadă de inactivitate, iar programele care rulează prea mult pot fi oprite.

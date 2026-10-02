@@ -8,7 +8,6 @@
     .assets_dir_path = "assets",
     .static_assets = [
         "robots.txt",
-        "sitemap.xml",
         "vercel.json",
         "cexia-wordmark.png",
         "cexia-wordmark-light.png",

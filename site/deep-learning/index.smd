@@ -1,6 +1,0 @@
----
-.title = "Deep Learning",
-.description = "Rețele neuronale construite gradual, de la un singur neuron la arhitecturi pentru imagini și limbaj.",
----
-
-În acest modul urmărim fiecare componentă a unei rețele neuronale: propagarea înainte, funcția de pierdere, gradientul și actualizarea parametrilor. Codul pornește de la implementări explicite înainte de folosirea framework-urilor.

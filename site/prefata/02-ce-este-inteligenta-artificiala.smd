@@ -1,0 +1,82 @@
+---
+.title = "02 · IA pe scurt",
+.description = "O introducere în ideea de inteligență artificială și în principalele tipuri de probleme pe care le poate rezolva.",
+.date = .unix(1),
+.tags = ["ia", "machine-learning", "fundamente"],
+---
+
+# Definiție
+
+Inteligența artificială este un domeniu al informaticii care studiază metode prin care calculatoarele pot rezolva probleme ce necesită, de obicei, capacități asociate inteligenței umane. Printre acestea se numără recunoașterea tiparelor, înțelegerea limbajului, luarea deciziilor și învățarea din exemple.
+
+Un program obișnuit urmează reguli scrise explicit de programator. Un sistem de inteligență artificială poate folosi reguli scrise manual, dar poate și să învețe tipare din date. Rezultatul poate fi o predicție, o clasificare, o recomandare sau o acțiune.
+
+## Exemple de probleme
+
+- clasificarea unui e-mail ca spam sau non-spam;
+- estimarea prețului unei locuințe;
+- recunoașterea unui obiect dintr-o imagine;
+- traducerea unui text;
+- recomandarea unui film;
+- găsirea unei soluții într-un spațiu de stări;
+- detectarea unei tranzacții suspecte.
+
+Aceste probleme apar în aplicații pe care le folosim zi de zi: telefoane, motoare de căutare, rețele sociale, servicii de streaming, magazine online, sisteme medicale și jocuri.
+
+# IA, machine learning și deep learning
+
+Sunt termeni care evocă idei similare. Deși sunt legați, nu înseamnă același lucru:
+
+- **inteligența artificială** este domeniul general și include orice sistem care rezolvă o problemă asociată de obicei inteligenței;
+- **machine learning**, sau învățarea automată, este o ramură a IA în care modelele învață relații din exemple, în loc să primească toate regulile explicit;
+- **deep learning** este o ramură a machine learning-ului care folosește rețele neuronale cu multe straturi.
+
+Putem reprezenta relația dintre ele astfel:
+
+```
+Inteligență artificială
+└── Machine learning
+    └── Deep learning
+```
+
+# Cum învață un model?
+
+Un model de machine learning primește date și încearcă să găsească relații utile în ele. De exemplu, dacă îi oferim informații despre locuințe și prețurile lor, modelul poate învăța să estimeze prețul unei locuințe noi.
+
+În general, procesul are următoarele etape:
+
+1. colectăm sau încărcăm datele;
+2. curățăm și pregătim datele;
+3. alegem un model;
+4. antrenăm modelul pe exemple;
+5. verificăm cât de bine funcționează;
+6. folosim modelul pentru predicții noi.
+
+Este important ca modelul să fie verificat pe date pe care nu le-a folosit la antrenare. Altfel, este posibil să memoreze exemplele în loc să învețe o regulă care se aplică și în situații noi.
+
+# Tipuri de învățare
+
+Există două moduri *principale* prin care un model „învață”:
+
+## Învățare supervizată
+
+În învățarea supervizată, exemplele conțin și răspunsul corect. Modelul învață să lege datele de intrare de etichetele lor.
+
+Două probleme frecvente sunt:
+
+- **clasificarea**; răspunsul este o categorie. De exemplu, pentru un e-mail, modelul poate răspunde „spam” sau „nu este spam”;
+- **regresia**; răspunsul este o valoare numerică. De exemplu, modelul poate estima prețul unei locuințe.
+
+## Învățare nesupervizată
+
+În învățarea nesupervizată, datele nu au răspunsuri corecte furnizate dinainte. Modelul caută singur structuri sau grupuri în date.
+
+Un exemplu este gruparea clienților cu comportamente asemănătoare, fără să stabilim manual grupele înainte.
+
+Există și alte forme de învățare, precum învățarea semi-supervizată, învățarea prin transfer și învățarea prin recompensă. Le vom întâlni în modulele următoare.
+
+# De ce învățăm inteligență artificială?
+
+Pe lângă aplicațiile practice, studiul IA dezvoltă gândirea computațională. Înveți să structurezi date, să formulezi probleme, să compari soluții și să verifici dacă un rezultat este corect.
+
+În lecțiile următoare vom construi aceste idei treptat: vom începe cu Python, vom învăța să prelucrăm date și apoi vom antrena și evalua modele.

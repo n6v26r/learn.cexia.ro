@@ -2,27 +2,8 @@
 
 Contributions to the lessons, design, and site generator are welcome.
 
-## Set up the project
-
-The supported build environment is Linux x86-64 with internet access and the
-Zig version pinned in `build.zig.zon`. [AnyZig](https://marler8997.github.io/anyzig/)
-can obtain that compiler automatically.
-
-```sh
-git clone <repository-url>
-cd learn.cexia.ro
-zig build
-zig build test
-zig build serve # for dev server
-```
-
-The development server is available at <http://localhost:1991>. Changes to
-files or directories under `site/` regenerate the intermediate Zine content;
-changes to layouts and assets are handled by Zine directly.
-
-No system Node.js or Python installation is required. The build obtains pinned
-copies of its tools and dependencies. See [README.md](README.md) for the exact
-compiler and platform requirements.
+For toolchain setup, building, testing, the development server, and release
+checks, follow the [README](README.md#requirements).
 
 ## Add a lesson
 
@@ -67,9 +48,8 @@ site/python/index.smd
 site/python/algoritmica/index.smd
 ```
 
-`site/index.smd` defines the homepage. Its `ftree` content section marks where
-the module cards are rendered. If absent, the file tree is rendered at the end
-of the page.
+Every directory page must contain `[]($section.id('ftree'))` where its child
+cards should be rendered.
 
 ## Frontmatter
 
@@ -91,7 +71,7 @@ A typical lesson sidecar or standalone document begins with:
 
 Supported page metadata includes `title`, `description`, `authors`, `tags`,
 `date`, `layout`, `aliases`, and `custom`. Common lesson-specific values under
-`custom` are `level`, `duration`, `cpu`, `memory`, `gpu`, and `problem_url`.
+`custom` are `level`, `duration`, `cpu`, `memory`, and `gpu`.
 Notebook Python version and execution time are derived automatically when the
 source notebook provides them.
 
@@ -118,20 +98,7 @@ The dedication does not cover third-party fonts, libraries, images, logos,
 trademarks, personal data, or other externally licensed material. See
 [LICENSE-CONTENT](LICENSE-CONTENT) for the complete scope and exclusions.
 
-## Validate a change
-
-Run all local checks before opening a pull request:
-
-```sh
-zig build
-zig build test
-zig build release
-```
-
-- `zig build` writes the development site to `zig-out/dist`.
-- `zig build test` exercises the source-tree hashing used by the watcher.
-- `zig build release` writes the optimized site to `zig-out/release`.
+## Code changes
 
 Keep generator changes small. Prefer templates, CSS, or focused browser scripts
-when the requested behavior does not require Zig. Do not commit downloaded
-dependencies, generated fonts, caches, notebook checkpoints, or `zig-out/`.
+when the requested behavior does not require Zig.

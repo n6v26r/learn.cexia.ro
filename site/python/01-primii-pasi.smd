@@ -1,6 +1,7 @@
 ---
 .title = "01 · Primii pași în Python",
 .description = "Valori, variabile, expresii și primele decizii scrise în Python.",
+.date = .unix(0),
 .tags = ["python", "incepatori"],
 .custom = .{
     .level = "Începător",

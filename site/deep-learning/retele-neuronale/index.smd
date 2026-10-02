@@ -1,6 +1,0 @@
----
-.title = "Rețele neuronale",
-.description = "Neuronul artificial, backpropagation și antrenarea modelelor cu mai multe straturi.",
----
-
-O rețea neuronală este o compoziție de transformări diferențiabile. Începem cu cel mai mic model posibil și adăugăm complexitate numai după ce înțelegem mecanismul de învățare.

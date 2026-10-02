@@ -1,6 +1,0 @@
----
-.title = "01 · Gradient descent în profunzime",
-.description = "Studiază convergența pe funcții pătratice și compară SGD, momentum și Adam.",
-.tags = ["optimizare", "gradient-descent", "matematica"],
-.custom = .{ .level = "Avansat", .duration = "145 min" },
----

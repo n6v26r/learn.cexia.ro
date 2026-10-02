@@ -48,39 +48,6 @@
   max-width: none;
 }
 
-.result-table {
-  display: block;
-  overflow-x: auto;
-  width: max-content;
-  max-width: 100%;
-  margin: 0.7rem 0 0;
-  border: 1px dotted var(--surface2);
-  border-collapse: collapse;
-  line-height: 1.15;
-}
-
-.result-table th,
-.result-table td {
-  padding: 0.14rem 0.55rem 0.16rem;
-  border: 1px dotted var(--surface1);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  text-align: right;
-}
-
-.result-table th {
-  color: var(--subtext0);
-  font-family: var(--font-wide);
-  font-size: 0.58rem;
-  font-weight: 400;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.result-table tbody th {
-  text-align: left;
-}
-
 .nb-cell {
   position: relative;
   margin: 0;

@@ -1,6 +1,7 @@
 ---
 .title = "02 · Colecții și funcții",
 .description = "Liste, dicționare și funcții reutilizabile pentru prelucrarea datelor.",
+.date = .unix(1),
 .tags = ["python", "date"],
 .custom = .{
     .level = "Începător",

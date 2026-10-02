@@ -18,10 +18,6 @@
             .url = "https://s.razv.xyz/fonts/katex-fonts-0.16.22.tar.gz",
             .hash = "N-V-__8AACP7AwCZkNTVlDuxe0NeWiO-5agod5_0ErFqBC98",
         },
-        .font_bebas_neue = .{
-            .url = "https://s.razv.xyz/fonts/bebas-neue-5.3.0.tar.gz",
-            .hash = "N-V-__8AAM9pAAA6zioJb1G2HFXlouaf_vwWje7b1ecTVGMx",
-        },
         .font_lexend = .{
             .url = "https://s.razv.xyz/fonts/lexend-5.3.0.tar.gz",
             .hash = "N-V-__8AAGjsAAAkNnDNAfqThGdjZHR18mBLCq4dioPJ8TgF",
@@ -33,22 +29,6 @@
         .font_merriweather = .{
             .url = "https://s.razv.xyz/fonts/merriweather-5.3.0.tar.gz",
             .hash = "N-V-__8AANt5AQDA33txfzIo3uNxxS9dOHT-rsXc9BP3d8Yz",
-        },
-        .font_unbounded = .{
-            .url = "https://s.razv.xyz/fonts/unbounded-5.3.0.tar.gz",
-            .hash = "N-V-__8AADJfAACzhbT3mitPYQaQx-pivzn2Ai5Ya1vu05b9",
-        },
-        .font_protest_strike = .{
-            .url = "https://s.razv.xyz/fonts/protest-strike-5.3.0.tar.gz",
-            .hash = "N-V-__8AALtXAABvOKt09owxbaFlqQBLMIiWtuCi07wj8N4N",
-        },
-        .font_getai = .{
-            .url = "https://s.razv.xyz/fonts/getai-grotesk-display-1.0.0.tar.gz",
-            .hash = "N-V-__8AAP1QAABOg-O967arHpIV3V3XQuLujKDrOT8eBaXe",
-        },
-        .font_selera = .{
-            .url = "https://s.razv.xyz/fonts/selera-regular-1.0.0.tar.gz",
-            .hash = "N-V-__8AAE0rAAD6WHgdWuPUJIRzTgoV754v0jzYarQzDbaI",
         },
         .node_linux_x64 = .{
             .url = "https://nodejs.org/dist/v26.4.0/node-v26.4.0-linux-x64.tar.xz",

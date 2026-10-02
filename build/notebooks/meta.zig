@@ -36,20 +36,34 @@ pub fn inferRuntime(alloc: Allocator, notebook: *const Json, custom: *types.Cust
     var total_ms: i128 = 0;
     var found = false;
     for (notebook.object.get("cells").?.array.items) |cell| {
-        const metadata = cell.object.get("metadata").?;
+        const metadata = cell.object.get("metadata") orelse continue;
 
         if (metadata.object.getPtr("ExecuteTime")) |execute_time| {
-            const start = execute_time.object.get("start_time").?.string;
-            const end = execute_time.object.get("end_time").?.string;
-            total_ms += (try timestampMs(end)) - (try timestampMs(start));
+            const start = if (execute_time.object.get("start_time")) |value| value.string else continue;
+            const end = if (execute_time.object.get("end_time")) |value| value.string else continue;
+            const start_ms = timestampMs(start) catch continue;
+            const end_ms = timestampMs(end) catch continue;
+            total_ms += end_ms - start_ms;
             found = true;
             continue;
         }
 
         if (metadata.object.getPtr("execution")) |execution| {
-            const start = if (execution.object.getPtr("iopub.status.busy")) |v| v.string else execution.object.get("iopub.execute_input").?.string;
-            const end = if (execution.object.getPtr("iopub.status.idle")) |v| v.string else execution.object.get("shell.execute_reply").?.string;
-            total_ms += (try timestampMs(end)) - (try timestampMs(start));
+            const start = if (execution.object.get("iopub.status.busy")) |value|
+                value.string
+            else if (execution.object.get("iopub.execute_input")) |value|
+                value.string
+            else
+                continue;
+            const end = if (execution.object.get("iopub.status.idle")) |value|
+                value.string
+            else if (execution.object.get("shell.execute_reply")) |value|
+                value.string
+            else
+                continue;
+            const start_ms = timestampMs(start) catch continue;
+            const end_ms = timestampMs(end) catch continue;
+            total_ms += end_ms - start_ms;
             found = true;
         }
     }
@@ -58,6 +72,7 @@ pub fn inferRuntime(alloc: Allocator, notebook: *const Json, custom: *types.Cust
 }
 
 fn timestampMs(s: []const u8) !i128 {
+    if (s.len < 19) return error.InvalidTimestamp;
     const year = try std.fmt.parseInt(u16, s[0..4], 10);
     const month = try std.fmt.parseInt(u4, s[5..7], 10);
     const day = try std.fmt.parseInt(u5, s[8..10], 10);
@@ -99,4 +114,15 @@ fn formatDuration(alloc: Allocator, ms: i128) ![]const u8 {
     const minutes = (total_seconds / 60) % 60;
     const hours = total_seconds / 3600;
     return std.fmt.allocPrint(alloc, "{d:0>2}:{d:0>2}:{d:0>2}", .{ hours, minutes, seconds });
+}
+
+test "incomplete execution timing is ignored" {
+    const source =
+        \\{"cells":[{"metadata":{"ExecuteTime":{"start_time":"2026-01-01T00:00:00Z"}}}]}
+    ;
+    const parsed = try std.json.parseFromSlice(Json, std.testing.allocator, source, .{});
+    defer parsed.deinit();
+    var custom: types.Custom = .{};
+    try inferRuntime(std.testing.allocator, &parsed.value, &custom);
+    try std.testing.expectEqual(null, custom.runtime);
 }

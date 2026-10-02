@@ -1,6 +1,7 @@
 ---
 .title = "03 · Fișiere și excepții",
 .description = "O lecție text-only despre lucrul sigur cu fișiere, erori și contexte în Python.",
+.date = .unix(2),
 .authors = ["cexia-learn"],
 .tags = ["python", "fisiere", "fundamente"],
 .custom = .{ .level = "Începător", .duration = "55 min" },

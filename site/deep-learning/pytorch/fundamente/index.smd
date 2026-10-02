@@ -1,6 +1,0 @@
----
-.title = "Fundamente PyTorch",
-.description = "De la operații tensoriale și autograd la primul model antrenat cu module și optimizatoare.",
----
-
-Notebook-urile pot rula pe CPU și explică explicit formele tensorilor, graful computațional și starea optimizatorului.

@@ -12,38 +12,8 @@ pub const Date = union(enum) {
     unix: i64,
 };
 
-pub const ResultValue = struct {
-    score: ?f64 = null,
-    metric: ?f64 = null,
-    score_text: ?[]const u8 = null,
-    metric_text: ?[]const u8 = null,
-};
-
-pub const SplitResult = struct {
-    public: ResultValue,
-    private: ResultValue,
-};
-
-pub const BoardResult = union(enum) {
-    one: ResultValue,
-    split: SplitResult,
-};
-
-pub const ResultEntry = union(enum) {
-    one: ResultValue,
-    split: SplitResult,
-    total: BoardResult,
-};
-
-pub const Result = union(enum) {
-    full: BoardResult,
-    subtasks: []const ResultEntry,
-};
-
 pub const Custom = struct {
     crumbs: ?[]const u8 = null,
-    section: ?bool = null,
-    problem_url: ?[]const u8 = null,
     runtime: ?[]const u8 = null,
     cpu: ?[]const u8 = null,
     memory: ?[]const u8 = null,
@@ -51,10 +21,6 @@ pub const Custom = struct {
     python: ?[]const u8 = null,
     duration: ?[]const u8 = null,
     level: ?[]const u8 = null,
-    result: ?Result = null,
-    result_split: ?bool = null,
-    result_has_score: ?bool = null,
-    result_has_metric: ?bool = null,
 };
 
 pub const Meta = struct {

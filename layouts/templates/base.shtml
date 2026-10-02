@@ -69,7 +69,7 @@
 						<ul>
 							<ctx :loop="$site.index().subpages()">
 								<ctx section="$site.index().subpages().at($loop.len.minus($loop.idx))">
-								<ctx :if="$ctx.section.link().eql('/404/').not().and($ctx.section.link().eql('/tags/').not()).and($ctx.section.link().eql('/search/').not())">
+								<ctx :if="$ctx.section.isSection()">
 										<li class="tree-section">
 										<details name="lesson-sections">
 												<summary><a class="$ctx.section.isCurrent().then('tree-section-link is-current', 'tree-section-link')" href="$ctx.section.link()" :text="$ctx.section.title"></a></summary>
@@ -77,16 +77,16 @@
 											<ctx :loop="$ctx.section.subpages()">
 														<ctx child="$ctx.section.subpages().at($loop.len.minus($loop.idx))">
 															<li>
-																<ctx :if="$ctx.child.custom.get?('section')">
+														<ctx :if="$ctx.child.isSection()">
 																			<div class="tree-directory">
-																				<a class="$ctx.child.isCurrent().then('is-current', 'tree-directory-link')" href="$ctx.child.link()" :text="$ctx.child.title"></a>
+																			<a class="$ctx.child.isCurrent().then('tree-directory-link is-current', 'tree-directory-link')" href="$ctx.child.link()" :text="$ctx.child.title"></a>
 																				<ul>
 															<ctx :loop="$ctx.child.subpages()">
 																			<ctx branch="$ctx.child.subpages().at($loop.len.minus($loop.idx))">
 																				<li>
-																					<ctx :if="$ctx.branch.custom.get?('section')">
+																					<ctx :if="$ctx.branch.isSection()">
 																															<div class="tree-directory">
-																																<a class="$ctx.branch.isCurrent().then('is-current', 'tree-directory-link')" href="$ctx.branch.link()" :text="$ctx.branch.title"></a>
+																									<a class="$ctx.branch.isCurrent().then('tree-directory-link is-current', 'tree-directory-link')" href="$ctx.branch.link()" :text="$ctx.branch.title"></a>
 																							<ul>
 																				<ctx :loop="$ctx.branch.subpages()">
 																					<ctx leaf="$ctx.branch.subpages().at($loop.len.minus($loop.idx))">
@@ -96,7 +96,7 @@
 																							</ul>
 																															</div>
 																					</ctx>
-																			<ctx :if="$ctx.branch.custom.has('section').not()">
+																		<ctx :if="$ctx.branch.isSection().not()">
 																						<a class="$ctx.branch.isCurrent().then('is-current')" href="$ctx.branch.link()" :text="$ctx.branch.title"></a>
 																					</ctx>
 																					</li>
@@ -105,7 +105,7 @@
 																		</ul>
 																					</div>
 																</ctx>
-											<ctx :if="$ctx.child.custom.has('section').not()">
+											<ctx :if="$ctx.child.isSection().not()">
 																	<a class="$ctx.child.isCurrent().then('is-current')" href="$ctx.child.link()" :text="$ctx.child.title"></a>
 																</ctx>
 															</li>
@@ -163,7 +163,7 @@
 							<ctx :if="$page.hasNext()">
 								<ctx :if="$page.nextPage?()">
 									<ctx next="$if">
-										<ctx :if="$ctx.next.layout.eql('notebook.shtml').or($ctx.next.layout.eql('markdown.shtml')).or($ctx.next.layout.eql('folder.shtml'))">
+										<ctx :if="$ctx.next.link().eql('/404/').not().and($ctx.next.link().eql('/tags/').not()).and($ctx.next.link().eql('/search/').not())">
 											<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
 										</ctx>
 									</ctx>
@@ -171,33 +171,37 @@
 							</ctx>
 							<ctx :if="$page.hasNext().not()">
 								<ctx parent="$page.parentSection()">
-									<ctx :if="$ctx.parent.nextPage?()">
-										<ctx next="$if">
-											<ctx :if="$ctx.next.custom.get?('section')">
-												<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
-											</ctx>
-										</ctx>
-									</ctx>
-									<ctx :if="$ctx.parent.hasNext().not()">
-										<ctx grandparent="$ctx.parent.parentSection()">
-											<ctx :if="$ctx.grandparent.nextPage?()">
-												<ctx next="$if">
-													<ctx :if="$ctx.next.custom.get?('section')">
-														<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
-													</ctx>
-												</ctx>
-											</ctx>
-							<ctx :if="$ctx.grandparent.hasNext().not()">
-								<ctx greatgrandparent="$ctx.grandparent.parentSection()">
-									<ctx :if="$ctx.greatgrandparent.link().eql($site.index().link()).not()">
-										<ctx :if="$ctx.greatgrandparent.nextPage?()">
+									<ctx :if="$ctx.parent.link().eql($site.index().link()).not()">
+										<ctx :if="$ctx.parent.nextPage?()">
 											<ctx next="$if">
-												<ctx :if="$ctx.next.custom.get?('section')">
+												<ctx :if="$ctx.next.link().eql('/404/').not().and($ctx.next.link().eql('/tags/').not()).and($ctx.next.link().eql('/search/').not())">
 													<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
 												</ctx>
 											</ctx>
 										</ctx>
-									</ctx>
+										<ctx :if="$ctx.parent.hasNext().not()">
+											<ctx grandparent="$ctx.parent.parentSection()">
+												<ctx :if="$ctx.grandparent.link().eql($site.index().link()).not()">
+													<ctx :if="$ctx.grandparent.nextPage?()">
+														<ctx next="$if">
+															<ctx :if="$ctx.next.link().eql('/404/').not().and($ctx.next.link().eql('/tags/').not()).and($ctx.next.link().eql('/search/').not())">
+																<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
+															</ctx>
+														</ctx>
+													</ctx>
+													<ctx :if="$ctx.grandparent.hasNext().not()">
+														<ctx greatgrandparent="$ctx.grandparent.parentSection()">
+															<ctx :if="$ctx.greatgrandparent.link().eql($site.index().link()).not()">
+																<ctx :if="$ctx.greatgrandparent.nextPage?()">
+																	<ctx next="$if">
+																		<ctx :if="$ctx.next.link().eql('/404/').not().and($ctx.next.link().eql('/tags/').not()).and($ctx.next.link().eql('/search/').not())">
+																			<a class="lesson-next" href="$ctx.next.link()"><small>Următor <span aria-hidden="true">→</span></small><strong :text="$ctx.next.title"></strong></a>
+																		</ctx>
+																	</ctx>
+																</ctx>
+															</ctx>
+														</ctx>
+													</ctx>
 												</ctx>
 											</ctx>
 										</ctx>

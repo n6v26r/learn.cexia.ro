@@ -1,8 +1,6 @@
 const std = @import("std");
 const zine = @import("zine");
 
-const notebooks = @import("build/notebooks/tree.zig");
-const notebook_types = @import("build/notebooks/types.zig");
 const site = @import("build/site.zig");
 
 pub fn build(b: *std.Build) void {
@@ -11,15 +9,30 @@ pub fn build(b: *std.Build) void {
 
     setupClean(b);
 
-    const io = b.graph.io;
-    const root = b.root.root_dir.handle;
-    const generated_dirs: []const []const u8 = &.{ "zig-out/dist", "zig-out/.zine-release-raw", "zig-out/release", notebook_types.out_dir, notebook_types.staging_dir };
-    for (generated_dirs) |path| {
-        root.deleteTree(io, path) catch |err| std.debug.panic("failed to clean {s}: {s}", .{ path, @errorName(err) });
-    }
+    const ziggy_impl = b.dependency("ziggy", .{
+        .target = b.graph.host,
+        .optimize = .Debug,
+    }).module("ziggy");
+    const ziggy = b.createModule(.{
+        .root_source_file = b.path("build/ziggy.zig"),
+        .imports = &.{.{ .name = "ziggy_impl", .module = ziggy_impl }},
+    });
 
-    notebooks.generate(b) catch |err| std.debug.panic("failed to generate notebooks: {s}", .{@errorName(err)});
+    const generator = b.addExecutable(.{
+        .name = "site-generator",
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("build/generate.zig"),
+            .target = b.graph.host,
+        }),
+    });
+    generator.root_module.addImport("ziggy", ziggy);
+    const generate = b.addRunArtifact(generator);
+    generate.setName("generate site content");
+    generate.setCwd(b.path("."));
+    generate.has_side_effects = true;
+
     const assets = site.materializeAssets(b);
+    assets.dependOn(&generate.step);
 
     const website = zine.website(b, .{
         .output_path = "dist",
@@ -36,14 +49,6 @@ pub fn build(b: *std.Build) void {
             .target = b.graph.host,
         }),
     });
-    const ziggy_impl = b.dependency("ziggy", .{
-        .target = b.graph.host,
-        .optimize = .Debug,
-    }).module("ziggy");
-    const ziggy = b.createModule(.{
-        .root_source_file = b.path("build/ziggy.zig"),
-        .imports = &.{.{ .name = "ziggy_impl", .module = ziggy_impl }},
-    });
     watcher.root_module.addImport("ziggy", ziggy);
     const zine_dep = b.dependencyFromBuildZig(zine, .{
         .optimize = .ReleaseFast,
@@ -59,7 +64,7 @@ pub fn build(b: *std.Build) void {
 
     const tests = b.addTest(.{
         .root_module = b.createModule(.{
-            .root_source_file = b.path("build/watch.zig"),
+            .root_source_file = b.path("build/tests.zig"),
             .target = b.graph.host,
         }),
     });
